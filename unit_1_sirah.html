@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bidang Sirah - Pembentukan Negara Islam Madinah</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #fafaf9;
+        }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .quiz-btn {
+            transition: all 0.2s ease;
+        }
+        .quiz-btn:active:not(.disabled) {
+            transform: scale(0.98);
+        }
+        .quiz-correct {
+            background-color: #ecfdf5 !important;
+            border-color: #10b981 !important;
+            color: #065f46 !important;
+        }
+        .quiz-wrong {
+            background-color: #fff1f2 !important;
+            border-color: #f43f5e !important;
+            color: #9f1239 !important;
+        }
+        .disabled {
+            pointer-events: none;
+        }
+        .not-selected {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-700">
+
+    <!-- Header -->
+    <header class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition">
+                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+                    <i class="ph-bold ph-book-open text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-2xl leading-tight text-slate-800">Bijak<span class="text-indigo-600">Deen</span></h1>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Pendidikan Islam • Tahun 6</p>
+                </div>
+            </a>
+            <div class="hidden sm:flex items-center gap-2 bg-rose-50 px-4 py-2 rounded-full border border-rose-100">
+                <i class="ph-fill ph-scroll text-rose-600 text-xl"></i>
+                <span class="text-sm font-bold text-rose-800">Bidang Sirah</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto px-6 py-10 w-full fade-in">
+        
+        <!-- Tajuk Utama -->
+        <div class="text-center mb-12">
+            <span class="bg-rose-100 text-rose-700 text-xs font-extrabold px-4 py-1.5 rounded-full border border-rose-200 uppercase tracking-widest mb-3 inline-block shadow-sm">Unit 1</span>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight">Pembentukan Negara Islam Madinah</h2>
+            <p class="text-slate-500 text-lg mt-3 max-w-2xl mx-auto font-medium">Fahami sejarah agung bagaimana Nabi Muhammad SAW membina asas sebuah negara yang hebat.</p>
+        </div>
+
+        <!-- BAHAGIAN 1: NOTA PEMBELAJARAN (2 Kotak Landscape) -->
+        <section class="mb-16">
+            <div class="flex items-center gap-3 mb-6 bg-white p-4 rounded-2xl shadow-sm border border-orange-100 inline-flex">
+                <div class="bg-orange-100 p-2.5 rounded-xl text-orange-600 shadow-sm">
+                    <i class="ph-fill ph-images text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-800">Nota Infografik</h3>
+            </div>
+
+            <div class="grid grid-cols-1 gap-10">
+                <!-- Kotak Nota 1 -->
+                <div class="bg-white rounded-3xl p-4 sm:p-6 shadow-xl shadow-slate-200/50 border border-slate-100 relative group overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-orange-500 text-white font-bold text-xs px-4 py-1 rounded-bl-xl z-10">Nota 1</div>
+                    <p class="font-bold text-slate-700 mb-4 text-center text-lg"><i class="ph-duotone ph-map-pin-line text-orange-500 mr-2"></i>Latar Belakang & Asas Pertama Negara Madinah</p>
+                    
+                    <div class="w-full bg-slate-100 rounded-2xl overflow-hidden border-4 border-slate-50 aspect-[16/9] flex items-center justify-center relative">
+                        <img src="Sirah 2.jpg" alt="Latar Belakang Madinah & Asas Pertama" class="w-full object-contain hover:scale-[1.02] transition-transform duration-500" onerror="this.src='https://placehold.co/800x450/e2e8f0/64748b?text=Nota+1:+Latar+Belakang+Madinah'">
+                    </div>
+                </div>
+
+                <!-- Kotak Nota 2 -->
+                <div class="bg-white rounded-3xl p-4 sm:p-6 shadow-xl shadow-slate-200/50 border border-slate-100 relative group overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-teal-500 text-white font-bold text-xs px-4 py-1 rounded-bl-xl z-10">Nota 2</div>
+                    <p class="font-bold text-slate-700 mb-4 text-center text-lg"><i class="ph-duotone ph-handshake text-teal-500 mr-2"></i>Asas Kedua & Ketiga Negara Madinah</p>
+                    
+                    <div class="w-full bg-slate-100 rounded-2xl overflow-hidden border-4 border-slate-50 aspect-[16/9] flex items-center justify-center relative">
+                        <img src="Gemini_Generated_Image_sb1bdmsb1bdmsb1b.jpg" alt="Asas Kedua dan Ketiga Negara Madinah" class="w-full object-contain hover:scale-[1.02] transition-transform duration-500" onerror="this.src='https://placehold.co/800x450/e2e8f0/64748b?text=Nota+2:+Persaudaraan+%26+Piagam'">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Garis Pemisah -->
+        <div class="flex items-center my-12 opacity-50">
+            <div class="flex-grow border-t-2 border-dashed border-slate-300"></div>
+            <i class="ph-fill ph-star-four mx-4 text-rose-300 text-2xl"></i>
+            <div class="flex-grow border-t-2 border-dashed border-slate-300"></div>
+        </div>
+
+        <!-- BAHAGIAN 2: KUIZ PEMAHAMAN (Menegak: Set 1 di atas, Set 2 di bawah) -->
+        <section class="space-y-12">
+            <div class="flex items-center gap-3 mb-2 bg-white p-4 rounded-2xl shadow-sm border border-indigo-100 inline-flex">
+                <div class="bg-indigo-100 p-2.5 rounded-xl text-indigo-600 shadow-sm">
+                    <i class="ph-fill ph-brain text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-extrabold text-slate-800">Uji Minda Pintar (Satu Demi Satu)</h3>
+            </div>
+
+            <!-- SET 1 -->
+            <div class="bg-gradient-to-b from-orange-50 to-white p-6 sm:p-8 rounded-3xl shadow-lg border border-orange-100 relative">
+                <div class="absolute -top-4 left-6 bg-orange-500 text-white font-black px-4 py-1.5 rounded-full shadow-md border-2 border-white">SET 1</div>
+                
+                <div class="flex justify-between items-end border-b border-orange-200 pb-3 mb-6 mt-2">
+                    <h4 class="font-bold text-slate-700 text-lg">Latar Belakang & Asas Pertama</h4>
+                    <span id="counter-set1" class="text-sm font-extrabold text-orange-600 bg-orange-100 px-3 py-1 rounded-lg">Soalan 1 / 13</span>
+                </div>
+                
+                <div id="quiz-container-set1" class="min-h-[250px]">
+                    <!-- Kandungan Kuiz Set 1 Dijana oleh JS -->
+                </div>
+            </div>
+
+            <!-- SET 2 -->
+            <div class="bg-gradient-to-b from-teal-50 to-white p-6 sm:p-8 rounded-3xl shadow-lg border border-teal-100 relative">
+                <div class="absolute -top-4 left-6 bg-teal-500 text-white font-black px-4 py-1.5 rounded-full shadow-md border-2 border-white">SET 2</div>
+                
+                <div class="flex justify-between items-end border-b border-teal-200 pb-3 mb-6 mt-2">
+                    <h4 class="font-bold text-slate-700 text-lg">Persaudaraan & Piagam Madinah</h4>
+                    <span id="counter-set2" class="text-sm font-extrabold text-teal-600 bg-teal-100 px-3 py-1 rounded-lg">Soalan 1 / 13</span>
+                </div>
+                
+                <div id="quiz-container-set2" class="min-h-[250px]">
+                    <!-- Kandungan Kuiz Set 2 Dijana oleh JS -->
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-slate-400 text-sm font-semibold border-t border-rose-100 bg-white/50 mt-auto">
+        <p>© 2026 BijakDeen - Laman Pendidikan Islam Generasi Alpha</p>
+    </footer>
+
+    <!-- SKRIP KUIZ INTERAKTIF -->
+    <script>
+        const quizData = {
+            set1: [
+                { q: "Apakah nama asal kota Madinah sebelum kedatangan Rasulullah SAW?", opt: ["Mekah", "Taif", "Yathrib", "Syam"], ans: 2, kbat: false },
+                { q: "Masjid pertama yang dibina oleh Rasulullah SAW dalam perjalanan ke Madinah ialah...", opt: ["Masjidil Haram", "Masjid Quba'", "Masjid Nabawi", "Masjid Al-Aqsa"], ans: 1, kbat: false },
+                { q: "Apakah asas PERTAMA yang dibina oleh Rasulullah SAW apabila tiba di Madinah?", opt: ["Membina pasar", "Membina istana", "Membina masjid", "Membina kubu peperangan"], ans: 2, kbat: false },
+                { q: "Masjid Nabawi dibina di atas tapak tanah milik dua orang anak yatim. Siapakah mereka?", opt: ["Hasan dan Husin", "Sahl dan Suhail", "Umar dan Uthman", "Ali dan Muawiyah"], ans: 1, kbat: false },
+                { q: "Dua anak yatim tersebut berasal daripada kabilah...", opt: ["Bani Hashim", "Bani Qainuqa'", "Bani Najjar", "Bani Nadhir"], ans: 2, kbat: false },
+                { q: "Siapakah yang menamakan kota Yathrib kepada Madinah Al-Munawwarah (Kota yang bercahaya)?", opt: ["Abu Bakar As-Siddiq", "Umar Al-Khattab", "Rasulullah SAW", "Penduduk Yathrib"], ans: 2, kbat: false },
+                { q: "Apakah nama ruang khas di Masjid Nabawi yang disediakan sebagai tempat tinggal golongan fakir miskin?", opt: ["As-Suffah", "Al-Mihrab", "Ar-Raudhah", "Al-Hujrah"], ans: 0, kbat: false },
+                { q: "Selain sebagai tempat solat berjemaah, apakah fungsi utama masjid pada zaman Rasulullah SAW?", opt: ["Pusat menyimpan harta rampasan perang", "Pusat pentadbiran, pendidikan dan kemasyarakatan", "Tempat urusan berjual beli sahaja", "Tempat rehat kafilah dagang"], ans: 1, kbat: false },
+                { q: "Gotong-royong membina Masjid Nabawi telah memupuk semangat...", opt: ["Pentingkan diri sendiri", "Persaudaraan sesama Muslim", "Persaingan kabilah", "Bermegah-megah"], ans: 1, kbat: false },
+                { q: "Sahabat yang membayar harga tanah untuk pembinaan Masjid Nabawi bagi pihak Rasulullah SAW ialah...", opt: ["Saidina Abu Bakar", "Saidina Uthman", "Saidina Umar", "Saidina Ali"], ans: 0, kbat: false },
+                
+                // 3 Soalan KBAT
+                { q: "Pada pendapat anda, mengapakah masjid menjadi asas PERTAMA yang dibina oleh Rasulullah SAW berbanding bangunan lain?", opt: ["Kerana kos pembinaannya paling murah", "Untuk menyatukan hati umat Islam dan menjadi pusat pelbagai aktiviti", "Kerana penduduk Madinah suka bersolat", "Supaya musuh takut melihat kebesaran bangunan umat Islam"], ans: 1, kbat: true },
+                { q: "Sebagai seorang murid sekolah, bagaimanakah cara terbaik anda untuk mengimarahkan masjid pada masa kini?", opt: ["Hanya pergi ke masjid pada Hari Raya sahaja", "Bermain telefon pintar di saf belakang", "Menyertai solat berjemaah dan aktiviti ilmu di masjid", "Tidur di masjid pada waktu petang"], ans: 2, kbat: true },
+                { q: "Sekiranya masjid pada hari ini hanya digunakan semata-mata untuk solat fardu sahaja, apakah kesan yang mungkin berlaku kepada masyarakat setempat?", opt: ["Masyarakat menjadi lebih kaya", "Masjid menjadi lebih bersih dan cantik", "Kurangnya hubungan silaturahim dan semangat perpaduan sesama ahli kariah", "Ramai orang akan lebih kerap solat"], ans: 2, kbat: true }
+            ],
+            set2: [
+                { q: "Apakah asas KEDUA dalam pembentukan negara Islam Madinah?", opt: ["Membina masjid", "Mempersaudarakan golongan Muhajirin dan Ansar", "Menggubal Piagam Madinah", "Membina pasar ekonomi"], ans: 1, kbat: false },
+                { q: "Siapakah yang dimaksudkan dengan golongan Muhajirin?", opt: ["Penduduk asal Madinah", "Orang Yahudi Madinah", "Umat Islam Mekah yang berhijrah ke Madinah", "Kafilah dagang dari Syam"], ans: 2, kbat: false },
+                { q: "Golongan Ansar merupakan penduduk asal Madinah. Apakah maksud 'Ansar'?", opt: ["Penolong", "Peniaga", "Pahlawan", "Orang asing"], ans: 0, kbat: false },
+                { q: "Rasulullah SAW telah mempersaudarakan Saidina Abu Bakar As-Siddiq dengan...", opt: ["Sa'ad bin Ar-Rabi'", "Kharijah bin Zaid", "Usaid bin Hudhair", "Mu'az bin Jabal"], ans: 1, kbat: false },
+                { q: "Siapakah sahabat kaya dari Mekah (Muhajirin) yang dipersaudarakan dengan Sa'ad bin Ar-Rabi' (Ansar)?", opt: ["Umar Al-Khattab", "Abdul Rahman bin Auf", "Uthman bin Affan", "Bilal bin Rabah"], ans: 1, kbat: false },
+                { q: "Apakah tindakan golongan Ansar terhadap saudara Muhajirin mereka?", opt: ["Minta mereka bayar cukai", "Menyuruh mereka pulang ke Mekah", "Sanggup berkongsi harta, rumah dan perniagaan", "Membiarkan mereka hidup miskin"], ans: 2, kbat: false },
+                { q: "Apakah asas KETIGA dalam membentuk negara Islam Madinah?", opt: ["Melancarkan peperangan", "Menggubal Piagam Madinah", "Membina tentera berkuda", "Membuka kedutaan besar"], ans: 1, kbat: false },
+                { q: "Piagam Madinah juga dikenali sebagai...", opt: ["Perlembagaan bertulis pertama di dunia", "Surat perjanjian damai dengan Mekah", "Buku undang-undang peperangan", "Catatan ekonomi Madinah"], ans: 0, kbat: false },
+                { q: "Mengikut Piagam Madinah, siapakah yang diiktiraf sebagai ketua negara Madinah?", opt: ["Ketua kabilah Khazraj", "Ketua kabilah Yahudi", "Rasulullah SAW", "Ketua tentera Ansar"], ans: 2, kbat: false },
+                { q: "Apakah kaum bukan Islam utama yang turut menandatangani Piagam Madinah dan berjanji untuk mempertahankan Madinah bersama-sama?", opt: ["Kaum Nasrani (Kristian)", "Kaum Yahudi", "Kaum Majusi", "Musyrikin Mekah"], ans: 1, kbat: false },
+                
+                // 3 Soalan KBAT
+                { q: "Mengapakah ikatan persaudaraan antara Muhajirin dan Ansar sangat kritikal (penting) pada awal fasa hijrah?", opt: ["Untuk mengumpul askar yang ramai untuk serang Mekah", "Untuk memberikan sokongan moral dan jaminan kelangsungan hidup kepada Muhajirin yang meninggalkan segala harta di Mekah", "Kerana orang Ansar terlalu kaya dan tidak tahu buat apa dengan harta", "Supaya nama mereka dicatatkan dalam sejarah"], ans: 1, kbat: true },
+                { q: "Berdasarkan sejarah Piagam Madinah, apakah pengajaran utama yang boleh diamalkan oleh rakyat Malaysia yang berbilang kaum?", opt: ["Menghormati perlembagaan dan hidup bersatu padu tanpa mengira kaum dan agama", "Hanya berkawan dengan orang yang seagama sahaja", "Mendesak kaum lain keluar dari negara", "Bergaduh untuk merebut jawatan ketua"], ans: 0, kbat: true },
+                { q: "Bayangkan jika Rasulullah SAW tidak menggubal Piagam Madinah ketika itu, apakah kemungkinan besar yang akan berlaku?", opt: ["Ekonomi Madinah akan merudum kerana tiada pasar", "Akan berlaku huru-hara, perbalahan antara kabilah dan tiada undang-undang yang adil", "Kota Madinah akan dilanda banjir bandang", "Orang Yahudi akan memeluk Islam serta-merta"], ans: 1, kbat: true }
+            ]
+        };
+
+        // State pengurusan kuiz
+        const state = {
+            set1: { currentIndex: 0, score: 0 },
+            set2: { currentIndex: 0, score: 0 }
+        };
+
+        function renderQuestion(setKey, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; // Clear container
+            container.classList.add('fade-in'); // Add animation
+            
+            // Remove animation class after it plays so it can play again next time
+            setTimeout(() => container.classList.remove('fade-in'), 500);
+
+            const s = state[setKey];
+            const qData = quizData[setKey];
+
+            // Update counter
+            document.getElementById(`counter-${setKey}`).innerText = `Soalan ${s.currentIndex + 1} / ${qData.length}`;
+
+            // Jika sudah habis semua soalan
+            if (s.currentIndex >= qData.length) {
+                renderResult(setKey, containerId);
+                return;
+            }
+
+            const q = qData[s.currentIndex];
+
+            // Bina paparan soalan
+            const qBox = document.createElement('div');
+            qBox.className = "bg-white p-6 rounded-2xl border border-slate-200 shadow-sm";
+
+            // Label KBAT jika berkenaan
+            let kbatLabel = '';
+            if (q.kbat) {
+                let colorClass = setKey === 'set1' ? 'bg-orange-600' : 'bg-teal-600';
+                kbatLabel = `<span class="${colorClass} text-white text-[10px] px-2 py-1 rounded ml-2 font-black uppercase tracking-wider align-middle shadow-sm">KBAT</span>`;
+            }
+
+            const qText = document.createElement('h5');
+            qText.className = "font-extrabold text-slate-800 text-lg mb-5 leading-snug";
+            qText.innerHTML = `${s.currentIndex + 1}. ${q.q} ${kbatLabel}`;
+            qBox.appendChild(qText);
+
+            const optionsGrid = document.createElement('div');
+            optionsGrid.className = "flex flex-col gap-3";
+
+            // Feedback Area (disediakan awal, tapi disembunyikan)
+            const feedbackArea = document.createElement('div');
+            feedbackArea.className = "mt-5 hidden p-4 rounded-xl font-bold flex items-center justify-between";
+            
+            // Butang "Soalan Seterusnya" (disediakan awal, tapi disembunyikan)
+            const nextBtn = document.createElement('button');
+            nextBtn.className = `mt-4 w-full py-3 rounded-xl font-extrabold text-white shadow-md transition-all hidden
+                                ${setKey === 'set1' ? 'bg-orange-500 hover:bg-orange-600' : 'bg-teal-500 hover:bg-teal-600'}`;
+            nextBtn.innerText = "Teruskan ke Soalan Seterusnya";
+            nextBtn.onclick = () => {
+                s.currentIndex++;
+                renderQuestion(setKey, containerId);
+            };
+
+            q.opt.forEach((optionText, optIndex) => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-btn w-full text-left px-5 py-3.5 rounded-xl border-2 border-slate-100 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 font-bold text-slate-600 transition-colors flex items-center justify-between group";
+                
+                btn.innerHTML = `
+                    <span class="flex-grow pr-4">${optionText}</span> 
+                    <i class="ph-bold ph-check-circle opacity-0 status-icon text-xl flex-shrink-0"></i>
+                `;
+                
+                btn.onclick = () => {
+                    // Semak Jawapan
+                    const allBtns = optionsGrid.querySelectorAll('button');
+                    const isCorrect = (optIndex === q.ans);
+                    
+                    if(isCorrect) s.score++; // Tambah markah jika betul
+
+                    allBtns.forEach((b, idx) => {
+                        b.classList.add('disabled');
+                        const icon = b.querySelector('.status-icon');
+                        
+                        if (idx === q.ans) {
+                            // Highlight jawapan sebenar dengan HIJAU
+                            b.classList.add('quiz-correct');
+                            b.classList.remove('bg-slate-50', 'border-slate-100', 'text-slate-600');
+                            icon.classList.remove('opacity-0');
+                        } else if (idx === optIndex && !isCorrect) {
+                            // Highlight pilihan salah dengan MERAH
+                            b.classList.add('quiz-wrong');
+                            b.classList.remove('bg-slate-50', 'border-slate-100', 'text-slate-600');
+                            icon.classList.remove('ph-check-circle', 'opacity-0');
+                            icon.classList.add('ph-x-circle');
+                        } else {
+                            // Pudarkan pilihan yang tidak dipilih
+                            b.classList.add('not-selected');
+                        }
+                    });
+
+                    // Papar Maklum Balas
+                    feedbackArea.classList.remove('hidden');
+                    if (isCorrect) {
+                        feedbackArea.classList.add('bg-emerald-50', 'text-emerald-700', 'border', 'border-emerald-200');
+                        feedbackArea.innerHTML = `<span><i class="ph-fill ph-check-circle text-emerald-500 mr-2 text-xl align-middle"></i> Tepat sekali! Alhamdulillah.</span>`;
+                    } else {
+                        feedbackArea.classList.add('bg-rose-50', 'text-rose-700', 'border', 'border-rose-200');
+                        feedbackArea.innerHTML = `<span><i class="ph-fill ph-x-circle text-rose-500 mr-2 text-xl align-middle"></i> Kurang tepat. Jawapan di atas berwarna hijau adalah jawapan yang betul.</span>`;
+                    }
+
+                    // Tunjuk butang Seterusnya (atau "Lihat Keputusan" jika soalan terakhir)
+                    nextBtn.classList.remove('hidden');
+                    if (s.currentIndex === qData.length - 1) {
+                        nextBtn.innerText = "Selesai! Lihat Keputusan";
+                    }
+                };
+                
+                optionsGrid.appendChild(btn);
+            });
+
+            qBox.appendChild(optionsGrid);
+            qBox.appendChild(feedbackArea);
+            qBox.appendChild(nextBtn);
+            container.appendChild(qBox);
+        }
+
+        function renderResult(setKey, containerId) {
+            const container = document.getElementById(containerId);
+            const s = state[setKey];
+            const total = quizData[setKey].length;
+            const percentage = Math.round((s.score / total) * 100);
+            
+            // Hide the counter
+            document.getElementById(`counter-${setKey}`).style.display = 'none';
+
+            let message, iconStr, colorTheme;
+            if (percentage >= 80) {
+                message = "Masya-Allah, Hebat! Pemahaman sirah anda sangat mantap.";
+                iconStr = "ph-trophy";
+                colorTheme = setKey === 'set1' ? 'text-orange-600' : 'text-teal-600';
+            } else if (percentage >= 50) {
+                message = "Alhamdulillah, percubaan yang baik. Boleh ulang kaji semula nota di atas.";
+                iconStr = "ph-thumbs-up";
+                colorTheme = "text-yellow-600";
+            } else {
+                message = "Jangan putus asa! Sila baca nota bergambar sekali lagi dan cuba sebentar lagi.";
+                iconStr = "ph-book-open";
+                colorTheme = "text-rose-600";
+            }
+
+            container.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm text-center fade-in">
+                    <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-slate-100">
+                        <i class="ph-fill ${iconStr} text-4xl ${colorTheme}"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-slate-800 mb-2">Kuiz Tamat!</h3>
+                    <p class="text-slate-500 mb-6 font-semibold">${message}</p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-xl inline-block mb-6 border border-slate-100">
+                        <span class="text-sm font-bold text-slate-400 uppercase tracking-wider block mb-1">Skor Anda</span>
+                        <span class="text-4xl font-black ${colorTheme}">${s.score} <span class="text-xl text-slate-300">/ ${total}</span></span>
+                    </div>
+
+                    <div>
+                        <button onclick="resetQuiz('${setKey}', '${containerId}')" class="px-6 py-2.5 rounded-full font-bold text-white shadow-md transition-transform hover:scale-105 ${setKey === 'set1' ? 'bg-orange-500' : 'bg-teal-500'}">
+                            <i class="ph-bold ph-arrow-counter-clockwise mr-2"></i>Cuba Lagi
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetQuiz(setKey, containerId) {
+            state[setKey].currentIndex = 0;
+            state[setKey].score = 0;
+            document.getElementById(`counter-${setKey}`).style.display = 'inline-block';
+            renderQuestion(setKey, containerId);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuestion('set1', 'quiz-container-set1');
+            renderQuestion('set2', 'quiz-container-set2');
+        });
+    </script>
+</body>
+</html>
