@@ -169,29 +169,7 @@
     <footer class="text-center py-8 text-slate-400 text-sm font-semibold border-t border-rose-100 bg-white/50 mt-auto">
         <p>© 2026 BijakDeen - Laman Pendidikan Islam Generasi Alpha</p>
     </footer>
-
-            // FUNGSI MODAL GAMBAR (ZOOM)
-        function openModal(imageSrc) {
-            const modal = document.getElementById('image-modal');
-            const modalImg = document.getElementById('modal-img');
-            
-            modalImg.src = imageSrc;
-            modal.classList.remove('hidden');
-            // Sedikit delay untuk animasi opacity
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-            }, 10);
-            
-            // Halang scroll belakang
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('image-modal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto'; // Benarkan scroll semula
-        }
-
+    
     <!-- SKRIP KUIZ INTERAKTIF -->
     <script>
         const quizData = {
@@ -414,5 +392,21 @@
             renderQuestion('set2', 'quiz-container-set2');
         });
     </script>
+
+    <!-- MODAL ZOOM GAMBAR -->
+<div id="image-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
+
+    <div class="relative max-w-5xl w-[90%]">
+
+        <button onclick="closeModal()" 
+        class="absolute -top-10 right-0 text-white text-3xl font-bold hover:scale-110">
+        ✕
+        </button>
+
+        <img id="modal-img" class="w-full rounded-xl shadow-2xl">
+
+    </div>
+
+</div>
 </body>
 </html>
