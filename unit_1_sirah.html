@@ -170,6 +170,28 @@
         <p>© 2026 BijakDeen - Laman Pendidikan Islam Generasi Alpha</p>
     </footer>
 
+            // FUNGSI MODAL GAMBAR (ZOOM)
+        function openModal(imageSrc) {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-img');
+            
+            modalImg.src = imageSrc;
+            modal.classList.remove('hidden');
+            // Sedikit delay untuk animasi opacity
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+            }, 10);
+            
+            // Halang scroll belakang
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Benarkan scroll semula
+        }
+
     <!-- SKRIP KUIZ INTERAKTIF -->
     <script>
         const quizData = {
