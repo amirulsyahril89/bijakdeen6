@@ -172,6 +172,28 @@
     
     <!-- SKRIP KUIZ INTERAKTIF -->
     <script>
+        
+// FUNGSI ZOOM GAMBAR
+function openModal(imageSrc) {
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+
+    modalImg.src = imageSrc;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('image-modal');
+
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+
+    document.body.style.overflow = 'auto';
+}
         const quizData = {
             set1: [
                 { q: "Apakah nama asal kota Madinah sebelum kedatangan Rasulullah SAW?", opt: ["Mekah", "Taif", "Yathrib", "Syam"], ans: 2, kbat: false },
