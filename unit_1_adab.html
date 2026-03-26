@@ -41,11 +41,196 @@
         <!-- Butang Kembali ke menu unit Bidang Adab -->
         <button onclick="window.location.href=‘menu_adab.html'" class="mb-8 flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold transition-colors group">
             <div class="bg-white p-2 rounded-full shadow-sm border border-slate-200 group-hover:border-indigo-200 group-hover:bg-indigo-50 transition-all">
-                <i class="ph-bold ph-arrow-left></i>
+                <i class="ph-bold ph-arrow-left"></i>
             </div>
             Kembali ke menu unit Bidang Adab
         </button>
     </main>
+
+         <!-- Bahagian Nota (Pilihan) -->
+        <section id="noteSection" class="mb-12 fade-in">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-indigo-100 rounded-lg">
+                        <i class="ph-bold ph-notebook text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-slate-800">Nota Pembelajaran</h2>
+                </div>
+                <button onclick="document.getElementById('noteSection').classList.add('hidden')" class="text-slate-400 hover:text-indigo-600 font-bold text-sm">Sembunyikan Nota</button>
+            </div>
+            
+            <div class="bg-white p-6 rounded-[2rem] shadow-sm border-2 border-slate-100 overflow-hidden min-h-[300px] flex items-center justify-center">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-slate-200">
+                        <i class="ph ph-image text-3xl text-slate-300"></i>
+                    </div>
+                    <p class="text-slate-400 font-bold italic">Tampal Nota Anda Di Sini</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Container Kuiz -->
+        <section class="relative">
+            <!-- Progress Tracker -->
+            <div class="mb-8 px-4">
+                <div class="flex justify-between items-end mb-2">
+                    <span id="questionCounter" class="text-xs font-black text-indigo-600 tracking-widest uppercase">Soalan 1 / 15</span>
+                    <span id="scoreTracker" class="text-xs font-black text-emerald-600 tracking-widest uppercase">Markah: 0</span>
+                </div>
+                <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner">
+                    <div id="progressBar" class="progress-bar h-full bg-indigo-600 w-[6.6%]"></div>
+                </div>
+            </div>
+
+            <!-- Quiz Card -->
+            <div id="quizCard" class="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-indigo-100 border border-indigo-50 min-h-[450px] flex flex-col justify-between relative">
+                
+                <div id="questionContent" class="fade-in">
+                    <!-- Soalan akan masuk melalui JS -->
+                    <div class="text-center py-20">
+                        <p class="text-slate-400 font-bold">Memulakan Kuiz...</p>
+                    </div>
+                </div>
+
+                <!-- Maklum Balas -->
+                <div id="feedbackBox" class="hidden absolute top-0 left-0 w-full h-full bg-white/95 rounded-[3rem] z-20 flex flex-col items-center justify-center p-8 text-center fade-in">
+                    <div id="feedbackIcon" class="w-24 h-24 rounded-full flex items-center justify-center mb-6">
+                        <!-- Icon JS -->
+                    </div>
+                    <h3 id="feedbackTitle" class="text-3xl font-black mb-2">Betul!</h3>
+                    <p id="feedbackText" class="text-slate-500 font-bold mb-8 italic">Jawapan anda tepat sekali.</p>
+                    <button id="nextBtn" class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-black shadow-lg shadow-indigo-200 hover:scale-105 transition">
+                        SOALAN SETERUSNYA <i class="ph-bold ph-arrow-right ml-2"></i>
+                    </button>
+                </div>
+
+                <!-- Keputusan Akhir -->
+                <div id="resultBox" class="hidden flex flex-col items-center justify-center py-10 fade-in">
+                    <div class="w-32 h-32 bg-amber-100 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-amber-50">
+                        <i class="ph-fill ph-trophy text-amber-500 text-6xl"></i>
+                    </div>
+                    <h2 class="text-4xl font-black text-slate-800 mb-2">Tamat!</h2>
+                    <p class="text-slate-500 font-bold mb-6 italic">Anda telah berjaya menyelesaikan Unit 1.</p>
+                    
+                    <div class="bg-indigo-50 px-10 py-6 rounded-3xl border-2 border-indigo-100 text-center mb-10">
+                        <p class="text-indigo-400 font-black text-sm uppercase tracking-widest mb-1">Skor Anda</p>
+                        <p class="text-6xl font-black text-indigo-600"><span id="finalScore">0</span><span class="text-indigo-300 text-2xl">/15</span></p>
+                    </div>
+
+                    <button onclick="location.reload()" class="flex items-center gap-2 text-indigo-600 font-black hover:underline">
+                        <i class="ph-bold ph-arrows-clockwise"></i> CUBA LAGI
+                    </button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-10 text-slate-400 bg-white border-t border-slate-100 mt-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <p class="font-black text-xs uppercase tracking-[0.3em] mb-2">© 2026 BijakDeen</p>
+            <p class="text-sm font-bold text-slate-300 tracking-wide">Pendidikan Islam Digital Interaktif</p>
+        </div>
+    </footer>
+
+    <script>
+        const questions = [
+            { q: "Apakah maksud pergaulan dalam Islam?", options: ["A. Hubungan antara kelompok manusia", "B. Perbuatan menyendiri di rumah", "C. Persaingan dalam perniagaan"], correct: 0 },
+            { q: "Lengkapkan maksud dalil Al-Quran: 'Allah menyukai orang yang melakukan _________'.", options: ["A. Kesalahan", "B. Keburukan", "C. Kebaikan"], correct: 2 },
+            { q: "Antara berikut, yang manakah merupakan adab pergaulan dari aspek tingkah laku?", options: ["A. Meminta izin sebelum masuk rumah rakan", "B. Mengejek fizikal rakan", "C. Bercakap kasar dengan ibu bapa"], correct: 0 },
+            { q: "Bercakap dengan nada yang sopan adalah adab pergaulan dari aspek...", options: ["A. Fizikal", "B. Lisan", "C. Hati"], correct: 1 },
+            { q: "Mengapa kita perlu menjaga adab pergaulan dalam Islam?", options: ["A. Supaya mendapat pujian orang ramai", "B. Mengukuhkan ukhuwah (persaudaraan)", "C. Agar dipandang hebat oleh musuh"], correct: 1 },
+            { q: "Mendoakan kesejahteraan orang lain merupakan adab pergaulan melalui...", options: ["A. Perasaan (Hati)", "B. Perbuatan kasar", "C. Tulisan di media sosial"], correct: 0 },
+            { q: "Memberi salam apabila bertemu adalah amalan yang...", options: ["A. Sia-sia", "B. Sunnah Rasulullah SAW", "C. Wajib untuk orang kaya sahaja"], correct: 1 },
+            { q: "Apakah kesan buruk jika kita TIDAK mengamalkan adab pergaulan?", options: ["A. Disukai ramai", "B. Perbalahan mudah berlaku", "C. Masyarakat menjadi harmoni"], correct: 1 },
+            { q: "'Menutup aurat dengan sempurna' termasuk dalam adab pergaulan dari sudut...", options: ["A. Lisan (Kata-kata)", "B. Fizikal (Penampilan)", "C. Niat hati"], correct: 1 },
+            { q: "Apabila mendengar berita yang tidak pasti tentang kawan, kita hendaklah...", options: ["A. Terus menyebarkannya", "B. Menyiasat kebenarannya (Tabayyun)", "C. Memulaukan kawan tersebut"], correct: 1 },
+            { q: "Adam melihat rakannya membuang sampah merata-rata. Apakah tindakan paling beradab?", options: ["A. Menjerit memarahinya di hadapan orang ramai", "B. Menasihatinya secara tertutup dengan bahasa lembut", "C. Merakam videonya dan viralkan di TikTok"], correct: 1 },
+            { q: "Bagaimanakah cara terbaik menjaga adab pergaulan ketika berada di dalam WhatsApp kelas?", options: ["A. Hanya berkongsi info yang bermanfaat dan benar", "B. Bebas berkongsi sticker yang lucu walaupun menghina", "C. Tidak perlu memberi salam kerana bukan bersemuka"], correct: 0 },
+            { q: "Sekiranya anda dituduh melakukan kesalahan yang tidak anda buat, apakah adabnya?", options: ["A. Membalas dengan tuduhan yang lebih berat", "B. Bersabar dan menjelaskan keadaan sebenar dengan tenang", "C. Berhenti berkawan dengan semua orang terus"], correct: 1 },
+            { q: "Mengapakah Islam melarang pergaulan bebas tanpa batas antara lelaki dan perempuan?", options: ["A. Kerana menyusahkan kehidupan manusia", "B. Untuk mengelakkan fitnah dan kerosakan akhlak", "C. Supaya lelaki lebih berkuasa daripada perempuan"], correct: 1 },
+            { q: "Apakah kesan paling besar jika remaja hari ini mengabaikan adab pergaulan?", options: ["A. Ekonomi negara akan jatuh merosot", "B. Keruntuhan moral dan hilang jati diri sebagai muslim", "C. Tidak akan ada lagi orang yang mahu belajar"], correct: 1 }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+
+        function displayQuestion() {
+            const questionContainer = document.getElementById('questionContent');
+            const data = questions[currentQ];
+            
+            // Update counter & progress
+            document.getElementById('questionCounter').innerText = `Soalan ${currentQ + 1} / 15`;
+            document.getElementById('progressBar').style.width = `${((currentQ + 1) / 15) * 100}%`;
+            
+            questionContainer.innerHTML = `
+                <div class="fade-in">
+                    <p class="text-sm font-black text-indigo-500 uppercase tracking-widest mb-4">Unit 1: Adab Pergaulan</p>
+                    <h2 class="text-2xl font-extrabold text-slate-800 mb-8 leading-tight">${data.q}</h2>
+                    <div class="grid gap-4">
+                        ${data.options.map((opt, index) => `
+                            <button onclick="checkAnswer(${index})" class="option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 bg-white font-bold text-slate-700 shadow-sm flex justify-between items-center group">
+                                <span>${opt}</span>
+                                <i class="ph ph-circle text-slate-200 group-hover:text-indigo-300"></i>
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(selectedIndex) {
+            const data = questions[currentQ];
+            const feedbackBox = document.getElementById('feedbackBox');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackText = document.getElementById('feedbackText');
+            
+            // Disable other buttons
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(btn => btn.classList.add('disabled'));
+
+            if (selectedIndex === data.correct) {
+                score++;
+                feedbackIcon.innerHTML = '<i class="ph-fill ph-check-circle text-6xl text-emerald-500"></i>';
+                feedbackIcon.className = "w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center mb-6";
+                feedbackTitle.innerText = "MasyAllah, Betul!";
+                feedbackTitle.className = "text-3xl font-black mb-2 text-emerald-600";
+                feedbackText.innerText = "Jawapan anda tepat sekali. Teruskan semangat ini!";
+                document.getElementById('scoreTracker').innerText = `Markah: ${score}`;
+            } else {
+                feedbackIcon.innerHTML = '<i class="ph-fill ph-x-circle text-6xl text-rose-500"></i>';
+                feedbackIcon.className = "w-24 h-24 bg-rose-50 rounded-full flex items-center justify-center mb-6";
+                feedbackTitle.innerText = "Kurang Tepat";
+                feedbackTitle.className = "text-3xl font-black mb-2 text-rose-600";
+                feedbackText.innerHTML = `Jawapan yang betul ialah:<br><span class="text-slate-800 font-black">${data.options[data.correct]}</span>`;
+            }
+
+            feedbackBox.classList.remove('hidden');
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            document.getElementById('feedbackBox').classList.add('hidden');
+            currentQ++;
+            
+            if (currentQ < questions.length) {
+                displayQuestion();
+            } else {
+                showFinalResults();
+            }
+        });
+
+        function showFinalResults() {
+            document.getElementById('questionContent').classList.add('hidden');
+            document.getElementById('questionCounter').parentElement.parentElement.classList.add('hidden');
+            document.getElementById('resultBox').classList.remove('hidden');
+            document.getElementById('finalScore').innerText = score;
+        }
+
+        // Start
+        window.onload = displayQuestion;
+    </script>
 
     <footer class="text-center py-8 text-slate-400 text-sm font-semibold border-t border-indigo-100 bg-white/50 mt-auto">
         <p>© 2026 BijakDeen - Laman Pendidikan Islam Generasi Alpha</p>
