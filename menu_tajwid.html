@@ -8,21 +8,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        body { font-family: 'Nunito', sans-serif; background-color: #F0FDFA; }
-        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .unit-card { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .unit-card:hover { transform: translateY(-4px); border-color: #0d9488; box-shadow: 0 12px 20px -3px rgba(13, 148, 136, 0.15); }
-        .unit-card:active { transform: scale(0.98); }
+        body { 
+            font-family: 'Nunito', sans-serif; 
+            background-color: #F0FDFA; /* Teal 50 */
+        }
+        
+        /* Animasi Kemas Masuk */
+        .fade-in { 
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+        
+        @keyframes fadeIn { 
+            from { 
+                opacity: 0; 
+                transform: translateY(16px); 
+            } 
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            } 
+        }
+        
+        /* Kesan Hover & Klik pada Kad Aktif */
+        .unit-card { 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+        }
+        .unit-card:hover { 
+            transform: translateY(-4px); 
+            border-color: #0d9488; /* Teal 600 */
+            box-shadow: 0 12px 20px -3px rgba(13, 148, 136, 0.15); 
+        }
+        .unit-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Kelewatan Animasi (Stagger) */
         .stagger-1 { animation-delay: 0.05s; opacity: 0; }
         .stagger-2 { animation-delay: 0.10s; opacity: 0; }
         .stagger-3 { animation-delay: 0.15s; opacity: 0; }
         .stagger-4 { animation-delay: 0.20s; opacity: 0; }
         .stagger-5 { animation-delay: 0.25s; opacity: 0; }
+        .stagger-6 { animation-delay: 0.30s; opacity: 0; }
+        .stagger-7 { animation-delay: 0.35s; opacity: 0; }
+        .stagger-8 { animation-delay: 0.40s; opacity: 0; }
+        .stagger-9 { animation-delay: 0.45s; opacity: 0; }
+        .stagger-10 { animation-delay: 0.50s; opacity: 0; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-700 selection:bg-teal-200">
 
+    <!-- Header -->
     <header class="w-full bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <a href="../index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
@@ -42,6 +77,8 @@
     </header>
 
     <main class="flex-grow max-w-5xl mx-auto px-6 py-10 w-full fade-in">
+
+        <!-- Butang Kembali -->
         <button onclick="window.location.href='../menu_quran.html'" class="mb-8 flex items-center gap-2 text-slate-500 hover:text-teal-600 font-bold transition-colors group">
             <div class="bg-white p-2 rounded-full shadow-sm border border-slate-200 group-hover:border-teal-200 group-hover:bg-teal-50 transition-all">
                 <i class="ph-bold ph-arrow-left"></i>
@@ -49,6 +86,7 @@
             Kembali ke Menu Al-Quran
         </button>
 
+        <!-- Header Unit -->
         <div class="flex flex-col md:flex-row items-center gap-6 mb-12 bg-white p-8 rounded-3xl shadow-md border border-teal-100/50">
             <div class="w-24 h-24 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center text-5xl shadow-md">
                 <i class="ph-duotone ph-graduation-cap"></i>
@@ -60,55 +98,159 @@
             </div>
         </div>
 
+        <!-- Senarai Tajuk -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <!-- Tajuk 1: Aktif -->
-            <div class="unit-card fade-in stagger-1 bg-white border-2 border-teal-100 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group" onclick="window.location.href='unit_1_tajwid.html'">
+
+            <!-- Tajuk 1: Mad Lin (AKTIF) -->
+            <div class="unit-card fade-in stagger-1 bg-white border-2 border-teal-100 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group"
+                 onclick="window.location.href='unit_1_tajwid.html'">
                 <div class="flex items-center gap-5">
                     <div class="bg-teal-100 text-teal-600 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 font-extrabold text-2xl shadow-sm">1</div>
-                    <div><h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700">Mad Lin</h4><p class="text-sm text-teal-600 font-bold">Hukum Mad Lin</p></div>
+                    <div>
+                        <h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700 transition-colors">Mad Lin</h4>
+                        <p class="text-sm text-teal-600 font-bold">Hukum Mad Lin</p>
+                    </div>
                 </div>
-                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all"><i class="ph-bold ph-play text-xl"></i></div>
+                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all">
+                    <i class="ph-bold ph-play text-xl"></i>
+                </div>
             </div>
 
-            <!-- Tajuk 2: Aktif -->
-            <div class="unit-card fade-in stagger-2 bg-white border-2 border-teal-100 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group" onclick="window.location.href='unit_2_tajwid.html'">
+            <!-- Tajuk 2: Mad 'Aridh Lis-Sukun (AKTIF) -->
+            <div class="unit-card fade-in stagger-2 bg-white border-2 border-teal-100 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group"
+                 onclick="window.location.href='unit_2_tajwid.html'">
                 <div class="flex items-center gap-5">
                     <div class="bg-teal-100 text-teal-600 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 font-extrabold text-2xl shadow-sm">2</div>
-                    <div><h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700">Mad 'Aridh</h4><p class="text-sm text-teal-600 font-bold">Hukum Mad 'Aridh Lis-Sukun</p></div>
+                    <div>
+                        <h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700 transition-colors">Mad 'Aridh</h4>
+                        <p class="text-sm text-teal-600 font-bold">Hukum Mad 'Aridh Lis-Sukun</p>
+                    </div>
                 </div>
-                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all"><i class="ph-bold ph-play text-xl"></i></div>
+                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all">
+                    <i class="ph-bold ph-play text-xl"></i>
+                </div>
             </div>
 
-            <!-- Tajuk 3: Aktif -->
-            <div class="unit-card fade-in stagger-3 bg-white border-2 border-teal-100 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group" onclick="window.location.href='unit_3_tajwid.html'">
+            <!-- Tajuk 3: Mad Wajib Muttasil (AKTIF) -->
+            <div class="unit-card fade-in stagger-3 bg-white border-2 border-teal-100 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group"
+                 onclick="window.location.href='unit_3_tajwid.html'">
                 <div class="flex items-center gap-5">
                     <div class="bg-teal-100 text-teal-600 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 font-extrabold text-2xl shadow-sm">3</div>
-                    <div><h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700">Mad Wajib Muttasil</h4><p class="text-sm text-teal-600 font-bold">Hukum Mad Wajib Muttasil</p></div>
+                    <div>
+                        <h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700 transition-colors">Mad Wajib Muttasil</h4>
+                        <p class="text-sm text-teal-600 font-bold">Hukum Mad Wajib Muttasil</p>
+                    </div>
                 </div>
-                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all"><i class="ph-bold ph-play text-xl"></i></div>
+                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all">
+                    <i class="ph-bold ph-play text-xl"></i>
+                </div>
             </div>
 
-            <!-- Tajuk 4: Aktif - BARU -->
-            <div class="unit-card fade-in stagger-4 bg-white border-2 border-teal-100 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group" onclick="window.location.href='unit_4_tajwid.html'">
+            <!-- Tajuk 4: Mad Jaiz Munfasil (AKTIF) -->
+            <div class="unit-card fade-in stagger-4 bg-white border-2 border-teal-100 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group"
+                 onclick="window.location.href='unit_4_tajwid.html'">
                 <div class="flex items-center gap-5">
                     <div class="bg-teal-100 text-teal-600 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 font-extrabold text-2xl shadow-sm">4</div>
-                    <div><h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700">Mad Jaiz Munfasil</h4><p class="text-sm text-teal-600 font-bold">Hukum Mad Jaiz Munfasil</p></div>
+                    <div>
+                        <h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700 transition-colors">Mad Jaiz Munfasil</h4>
+                        <p class="text-sm text-teal-600 font-bold">Hukum Mad Jaiz Munfasil</p>
+                    </div>
                 </div>
-                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all"><i class="ph-bold ph-play text-xl"></i></div>
+                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all">
+                    <i class="ph-bold ph-play text-xl"></i>
+                </div>
             </div>
 
-            <!-- Tajuk 5 - 10: Locked -->
+            <!-- Tajuk 5: Mad Silah Tawilah (KUNCI) -->
             <div class="fade-in stagger-5 bg-white/65 border-2 border-slate-100 rounded-2xl p-6 flex items-center justify-between cursor-not-allowed opacity-70">
                 <div class="flex items-center gap-5">
-                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center font-extrabold text-2xl">5</div>
-                    <div><h4 class="font-bold text-slate-500 text-xl">Mad Silah Tawilah</h4><p class="text-sm text-slate-400 font-semibold">Akan datang...</p></div>
+                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center font-extrabold text-2xl shadow-inner">5</div>
+                    <div>
+                        <h4 class="font-bold text-slate-500 text-xl">Mad Silah Tawilah</h4>
+                        <p class="text-sm text-slate-400 font-semibold">Akan datang...</p>
+                    </div>
                 </div>
-                <div class="bg-slate-100 p-3 rounded-full text-slate-400"><i class="ph-fill ph-lock-key text-xl"></i></div>
+                <div class="bg-slate-100 p-3 rounded-full text-slate-400">
+                    <i class="ph-fill ph-lock-key text-xl"></i>
+                </div>
             </div>
+
+            <!-- Tajuk 6: Mad Lazim Harfi Muthaqqal (KUNCI) -->
+            <div class="fade-in stagger-6 bg-white/65 border-2 border-slate-100 rounded-2xl p-6 flex items-center justify-between cursor-not-allowed opacity-70">
+                <div class="flex items-center gap-5">
+                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center font-extrabold text-2xl shadow-inner">6</div>
+                    <div>
+                        <h4 class="font-bold text-slate-500 text-xl">Mad Lazim Harfi Muthaqqal</h4>
+                        <p class="text-sm text-slate-400 font-semibold">Akan datang...</p>
+                    </div>
+                </div>
+                <div class="bg-slate-100 p-3 rounded-full text-slate-400">
+                    <i class="ph-fill ph-lock-key text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Tajuk 7: Mad Lazim Harfi Mukhaffaf (KUNCI) -->
+            <div class="fade-in stagger-7 bg-white/65 border-2 border-slate-100 rounded-2xl p-6 flex items-center justify-between cursor-not-allowed opacity-70">
+                <div class="flex items-center gap-5">
+                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center font-extrabold text-2xl shadow-inner">7</div>
+                    <div>
+                        <h4 class="font-bold text-slate-500 text-xl">Mad Lazim Harfi Mukhaffaf</h4>
+                        <p class="text-sm text-slate-400 font-semibold">Akan datang...</p>
+                    </div>
+                </div>
+                <div class="bg-slate-100 p-3 rounded-full text-slate-400">
+                    <i class="ph-fill ph-lock-key text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Tajuk 8: Mad Lazim Kalimi Muthaqqal (KUNCI) -->
+            <div class="fade-in stagger-8 bg-white/65 border-2 border-slate-100 rounded-2xl p-6 flex items-center justify-between cursor-not-allowed opacity-70">
+                <div class="flex items-center gap-5">
+                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center font-extrabold text-2xl shadow-inner">8</div>
+                    <div>
+                        <h4 class="font-bold text-slate-500 text-xl">Mad Lazim Kalimi Muthaqqal</h4>
+                        <p class="text-sm text-slate-400 font-semibold">Akan datang...</p>
+                    </div>
+                </div>
+                <div class="bg-slate-100 p-3 rounded-full text-slate-400">
+                    <i class="ph-fill ph-lock-key text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Tajuk 9: Mad Lazim Kalimi Mukhaffaf (KUNCI) -->
+            <div class="fade-in stagger-9 bg-white/65 border-2 border-slate-100 rounded-2xl p-6 flex items-center justify-between cursor-not-allowed opacity-70">
+                <div class="flex items-center gap-5">
+                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center font-extrabold text-2xl shadow-inner">9</div>
+                    <div>
+                        <h4 class="font-bold text-slate-500 text-xl">Mad Lazim Kalimi Mukhaffaf</h4>
+                        <p class="text-sm text-slate-400 font-semibold">Akan datang...</p>
+                    </div>
+                </div>
+                <div class="bg-slate-100 p-3 rounded-full text-slate-400">
+                    <i class="ph-fill ph-lock-key text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Tajuk 10: Mad Farq (KUNCI) -->
+            <div class="fade-in stagger-10 bg-white/65 border-2 border-slate-100 rounded-2xl p-6 flex items-center justify-between cursor-not-allowed opacity-70">
+                <div class="flex items-center gap-5">
+                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center font-extrabold text-2xl shadow-inner">10</div>
+                    <div>
+                        <h4 class="font-bold text-slate-500 text-xl">Mad Farq</h4>
+                        <p class="text-sm text-slate-400 font-semibold">Akan datang...</p>
+                    </div>
+                </div>
+                <div class="bg-slate-100 p-3 rounded-full text-slate-400">
+                    <i class="ph-fill ph-lock-key text-xl"></i>
+                </div>
+            </div>
+
         </div>
     </main>
+
     <footer class="text-center py-8 text-slate-400 text-sm font-semibold border-t border-teal-100 bg-white/50 mt-auto">
         <p>© 2026 BijakDeen - Laman Pendidikan Islam Generasi Alpha</p>
     </footer>
+
 </body>
 </html>
