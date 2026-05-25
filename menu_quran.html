@@ -17,11 +17,10 @@
 <body class="min-h-screen flex flex-col text-slate-700 selection:bg-teal-200">
 
     <!-- Header -->
-<header class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm">
+    <header class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b-2 border-teal-100 shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            
-            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition">
-                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
+                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                     <i class="ph-bold ph-book-open text-white text-2xl"></i>
                 </div>
                 <div>
@@ -32,7 +31,7 @@
 
             <div class="hidden sm:flex items-center gap-2 bg-teal-50 px-4 py-2 rounded-full border border-teal-100">
                 <i class="ph-fill ph-book-open-text text-teal-600 text-xl"></i>
-                <span class="text-sm font-bold text-teal-800">Bidang Al-Quran</span>
+                <span class="text-sm font-bold text-teal-800">Al-Quran</span>
             </div>
         </div>
     </header>
@@ -62,13 +61,13 @@
         <!-- Senarai Unit -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             
-            <!-- Unit 1: Mari Membaca (Locked) -->
+            <!-- Unit 1: Mari Membaca (DIKUNCI - MAKSUD BARU) -->
             <div class="bg-white/60 border-2 border-slate-100 rounded-2xl p-6 flex items-center justify-between cursor-not-allowed opacity-70">
                 <div class="flex items-center gap-5">
-                <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-2xl">1</div>
+                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-2xl">1</div>
                     <div>
                         <h4 class="font-bold text-slate-600 text-xl">Mari Membaca</h4>
-                        <p class="text-sm text-slate-500">Tilawah Surah Ad-Dhuha</p>
+                        <p class="text-sm text-slate-400">Tilawah Surah Ad-Dhuha</p>
                     </div>
                 </div>
                 <div class="bg-slate-100 p-3 rounded-full text-slate-400"><i class="ph-fill ph-lock-key text-xl"></i></div>
@@ -110,16 +109,18 @@
                 <div class="bg-slate-100 p-3 rounded-full text-slate-400"><i class="ph-fill ph-lock-key text-xl"></i></div>
             </div>
 
-            <!-- Unit 5: Tajwid (Locked) -->
-            <div class="bg-white/60 border-2 border-slate-100 rounded-2xl p-6 flex items-center justify-between cursor-not-allowed opacity-70">
+            <!-- Unit 5: Tajwid (AKTIF & WARNA DISERAGAMKAN DENGAN UNIT 1) -->
+            <div onclick="window.location.href='menu_tajwid.html'" class="unit-card bg-white border-2 border-teal-200 rounded-2xl p-6 flex items-center justify-between cursor-pointer transition-all group">
                 <div class="flex items-center gap-5">
-                    <div class="bg-slate-100 text-slate-400 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-2xl">5</div>
+                    <div class="bg-teal-100 text-teal-600 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 font-extrabold text-2xl shadow-sm">5</div>
                     <div>
-                        <h4 class="font-bold text-slate-600 text-xl">Tajwid</h4>
-                        <p class="text-sm text-slate-400">Perbaiki Tajwidmu</p>
+                        <h4 class="font-extrabold text-slate-800 text-xl group-hover:text-teal-700 transition-colors">Tajwid</h4>
+                        <p class="text-sm text-slate-500 font-medium">Perbaiki Tajwidmu</p>
                     </div>
                 </div>
-                <div class="bg-slate-100 p-3 rounded-full text-slate-400"><i class="ph-fill ph-lock-key text-xl"></i></div>
+                <div class="bg-teal-50 p-3 rounded-full text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all">
+                    <i class="ph-bold ph-play text-xl"></i>
+                </div>
             </div>
 
         </div>
