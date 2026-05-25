@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 5: Tajwid - Hukum Mad Lin</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Nunito', sans-serif; background-color: #F0FDFA; } /* Teal-50 Background */
+        .arabic-text { font-family: 'Amiri', serif; direction: rtl; }
+        
+        /* Quiz Styles - Teal Theme */
+        .option-btn { transition: all 0.2s; border: 2px solid #E5E7EB; }
+        .option-btn:hover { border-color: #0d9488; background-color: #F0FDFA; }
+        .option-selected { border-color: #0d9488; background-color: #ccfbf1; color: #115e59; font-weight: bold; }
+        
+        .correct-answer { background-color: #99f6e4 !important; border-color: #0d9488 !important; color: #115e59; }
+        .wrong-answer { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #7f1d1d; }
+
+        /* Kad Imbas 3D Flip Styles */
+        .perspective { perspective: 1000px; }
+        .flip-card-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flipped { transform: rotateY(180deg); }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Modal Image Zoom Styles */
+        #image-modal { backdrop-filter: blur(5px); transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-700">
+
+    <!-- Header -->
+    <header class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b-2 border-teal-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="../index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
+                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                    <i class="ph-bold ph-book-open text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-2xl leading-tight text-slate-800">Bijak<span class="text-indigo-600">Deen</span></h1>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Pendidikan Islam • Tahun 6</p>
+                </div>
+            </a>
+
+            <div class="hidden sm:flex items-center gap-2 bg-teal-50 px-4 py-2 rounded-full border border-teal-100 shadow-sm">
+                <i class="ph-fill ph-book-open-text text-teal-600 text-xl"></i>
+                <span class="text-sm font-bold text-teal-800">Bidang Al-Quran</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto px-6 py-10 w-full fade-in">
+
+        <!-- Butang Kembali ke SENARAI UNIT TAJWID -->
+        <button onclick="window.location.href='../menu_tajwid.html'" class="mb-8 flex items-center gap-2 text-slate-500 hover:text-teal-600 font-bold transition-colors group">
+            <div class="bg-white p-2 rounded-full shadow-sm border border-slate-200 group-hover:border-teal-200 group-hover:bg-teal-50 transition-all">
+                <i class="ph-bold ph-arrow-left"></i>
+            </div>
+            Kembali ke Senarai Unit Tajwid
+        </button>
+
+        <!-- Tajuk Unit -->
+        <div class="text-center mb-10">
+            <span class="bg-teal-100 text-teal-700 text-xs font-bold px-3 py-1 rounded-full border border-teal-200 uppercase tracking-wider mb-2 inline-block">Unit 5 • Tajuk 1</span>
+            <h2 class="text-4xl font-extrabold text-slate-800">Hukum Mad Lin</h2>
+            <p class="text-slate-500 text-lg mt-2">Kuasai cara bacaan lembut dan indah.</p>
+        </div>
+
+        <!-- BAHAGIAN 1: NOTA INTERAKTIF (KAD IMBAS 3D FLIP) -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-6 bg-white p-4 rounded-2xl shadow-sm border border-teal-100 inline-flex">
+                <div class="bg-teal-100 p-2 rounded-lg text-teal-600">
+                    <i class="ph-fill ph-cards text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-800">Kad Imbas Pembelajaran (Klik Kad)</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Kad 1: Pengertian -->
+                <div class="perspective h-72 cursor-pointer w-full" onclick="flipCard(this)">
+                    <div class="flip-card-inner relative w-full h-full duration-500 rounded-3xl shadow-lg border-2 border-teal-100">
+                        <!-- Depan -->
+                        <div class="backface-hidden absolute inset-0 bg-white rounded-3xl p-8 flex flex-col justify-between items-center text-center">
+                            <span class="bg-teal-50 text-teal-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Pengertian</span>
+                            <i class="ph-duotone ph-book-open text-5xl text-teal-500 my-4 animate-pulse"></i>
+                            <h3 class="text-xl font-bold text-slate-800">Apakah Maksud Mad Lin?</h3>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-2">Klik untuk jawapan</p>
+                        </div>
+                        <!-- Belakang -->
+                        <div class="backface-hidden rotate-y-180 absolute inset-0 bg-teal-50 rounded-3xl p-6 flex flex-col justify-center items-center text-center border-2 border-teal-500">
+                            <h4 class="font-extrabold text-teal-800 mb-3 text-lg">Maksud Mad Lin</h4>
+                            <p class="text-slate-700 leading-relaxed text-sm md:text-base font-medium">
+                                Berlaku apabila huruf Mad Lin (Waw sukun <span class="arabic-text font-bold text-lg">وْ</span> atau Ya sukun <span class="arabic-text font-bold text-lg">يْ</span>) terletak selepas huruf berbaris <strong>atas (Fathah)</strong> dan selepasnya terdapat huruf hijaiyah yang dibaca secara <strong>sukun (mati) kerana wakaf (berhenti)</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kad 2: Huruf Mad Lin -->
+                <div class="perspective h-72 cursor-pointer w-full" onclick="flipCard(this)">
+                    <div class="flip-card-inner relative w-full h-full duration-500 rounded-3xl shadow-lg border-2 border-teal-100">
+                        <!-- Depan -->
+                        <div class="backface-hidden absolute inset-0 bg-white rounded-3xl p-8 flex flex-col justify-between items-center text-center">
+                            <span class="bg-teal-50 text-teal-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Huruf</span>
+                            <i class="ph-duotone ph-textbox text-5xl text-teal-500 my-4 animate-pulse"></i>
+                            <h3 class="text-xl font-bold text-slate-800">Apakah Huruf Mad Lin?</h3>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-2">Klik untuk jawapan</p>
+                        </div>
+                        <!-- Belakang -->
+                        <div class="backface-hidden rotate-y-180 absolute inset-0 bg-teal-50 rounded-3xl p-6 flex flex-col justify-center items-center text-center border-2 border-teal-500">
+                            <h4 class="font-extrabold text-teal-800 mb-3 text-lg">Dua Huruf Mad Lin</h4>
+                            <div class="flex gap-8 mb-4">
+                                <div class="bg-white px-4 py-2 rounded-xl shadow-sm border border-teal-200">
+                                    <span class="arabic-text text-4xl text-teal-600 font-bold">وۡ</span>
+                                    <p class="text-xs text-slate-400 font-bold mt-1">Waw Sukun</p>
+                                </div>
+                                <div class="bg-white px-4 py-2 rounded-xl shadow-sm border border-teal-200">
+                                    <span class="arabic-text text-4xl text-teal-600 font-bold">يۡ</span>
+                                    <p class="text-xs text-slate-400 font-bold mt-1">Ya Sukun</p>
+                                </div>
+                            </div>
+                            <p class="text-slate-700 text-sm font-medium">Syaratnya: Huruf sebelum kedua-dua huruf sukun ini mestilah berbaris <strong>atas (Fathah)</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kad 3: Cara Bacaan -->
+                <div class="perspective h-72 cursor-pointer w-full" onclick="flipCard(this)">
+                    <div class="flip-card-inner relative w-full h-full duration-500 rounded-3xl shadow-lg border-2 border-teal-100">
+                        <!-- Depan -->
+                        <div class="backface-hidden absolute inset-0 bg-white rounded-3xl p-8 flex flex-col justify-between items-center text-center">
+                            <span class="bg-teal-50 text-teal-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Kadar & Cara Bacaan</span>
+                            <i class="ph-duotone ph-music-notes text-5xl text-teal-500 my-4 animate-pulse"></i>
+                            <h3 class="text-xl font-bold text-slate-800">Bagaimana Cara Membaca Mad Lin?</h3>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-2">Klik untuk jawapan</p>
+                        </div>
+                        <!-- Belakang -->
+                        <div class="backface-hidden rotate-y-180 absolute inset-0 bg-teal-50 rounded-3xl p-6 flex flex-col justify-center items-center text-center border-2 border-teal-500">
+                            <h4 class="font-extrabold text-teal-800 mb-2 text-lg">Kadar Panjang Pembelajaran</h4>
+                            <p class="text-slate-700 text-sm leading-relaxed mb-3 font-medium">
+                                <strong>Ketika Wakaf (Berhenti):</strong> Boleh dibaca dengan kadar panjang <strong>2, 4, atau 6 harakat</strong>.
+                            </p>
+                            <div class="w-full border-t border-teal-200 my-1"></div>
+                            <p class="text-slate-700 text-sm leading-relaxed mt-2 font-medium">
+                                <strong>Ketika Wasal (Bersambung):</strong> Dibaca dengan lembut <strong>tanpa sebarang kadar mad</strong> (mad biasa/lembut sahaja).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kad 4: Contoh Kalimah -->
+                <div class="perspective h-72 cursor-pointer w-full" onclick="flipCard(this)">
+                    <div class="flip-card-inner relative w-full h-full duration-500 rounded-3xl shadow-lg border-2 border-teal-100">
+                        <!-- Depan -->
+                        <div class="backface-hidden absolute inset-0 bg-white rounded-3xl p-8 flex flex-col justify-between items-center text-center">
+                            <span class="bg-teal-50 text-teal-700 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Contoh Ayat</span>
+                            <i class="ph-duotone ph-file-text text-5xl text-teal-500 my-4 animate-pulse"></i>
+                            <h3 class="text-xl font-bold text-slate-800">Lihat Contoh Mad Lin</h3>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-2">Klik untuk jawapan</p>
+                        </div>
+                        <!-- Belakang -->
+                        <div class="backface-hidden rotate-y-180 absolute inset-0 bg-teal-50 rounded-3xl p-6 flex flex-col justify-center items-center text-center border-2 border-teal-500">
+                            <h4 class="font-extrabold text-teal-800 mb-4 text-lg">Contoh Kalimah Mad Lin</h4>
+                            <div class="grid grid-cols-2 gap-3 w-full max-w-xs">
+                                <div class="bg-white p-2 rounded-xl border border-teal-200">
+                                    <span class="arabic-text text-2xl font-bold text-teal-600">قُرَيْشٍ</span>
+                                    <p class="text-xs text-slate-400 font-bold mt-1">Quraish</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-xl border border-teal-200">
+                                    <span class="arabic-text text-2xl font-bold text-teal-600">بَيْتٍ</span>
+                                    <p class="text-xs text-slate-400 font-bold mt-1">Bait</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-xl border border-teal-200 col-span-2">
+                                    <span class="arabic-text text-2xl font-bold text-teal-600">مِّنْ خَوْفٍۭ</span>
+                                    <p class="text-xs text-slate-400 font-bold mt-1">Min Khauf</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="relative flex py-5 items-center mb-10">
+            <div class="flex-grow border-t border-teal-200"></div>
+            <span class="flex-shrink-0 mx-4 text-teal-600 text-2xl"><i class="ph-fill ph-star"></i></span>
+            <div class="flex-grow border-t border-teal-200"></div>
+        </div>
+
+        <!-- BAHAGIAN 2: KUIZ INTERAKTIF (UJI MINDA) -->
+        <section id="quiz-section" class="max-w-3xl mx-auto">
+            <div class="flex items-center gap-3 mb-6 bg-white p-4 rounded-2xl shadow-sm border border-teal-100 inline-flex">
+                <div class="bg-orange-100 p-2 rounded-lg text-orange-600">
+                    <i class="ph-fill ph-brain text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-800">Uji Minda</h2>
+            </div>
+
+            <!-- Quiz Container -->
+            <div class="bg-white rounded-3xl shadow-xl shadow-teal-100/50 border-2 border-teal-50 overflow-hidden relative min-h-[400px]">
+                <!-- Progress Bar (Teal Theme) -->
+                <div class="w-full h-3 bg-slate-100">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-teal-400 to-teal-600 transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
+
+                <div id="question-screen" class="p-8 md:p-10">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-sm font-bold text-slate-400 uppercase tracking-wider">Soalan <span id="current-q" class="text-slate-800 text-lg">1</span> / 5</span>
+                    </div>
+
+                    <h3 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 mb-8 leading-relaxed">
+                        Soalan akan muncul di sini...
+                    </h3>
+
+                    <div id="options-container" class="space-y-3"></div>
+
+                    <!-- Feedback Area (Teal Theme) -->
+                    <div id="feedback-area" class="hidden mt-8 p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center animate-bounce-in">
+                        <p id="feedback-text" class="font-bold mb-4 text-lg"></p>
+                        <button onclick="nextQuestion()" class="bg-teal-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-200 hover:shadow-xl transform hover:-translate-y-1 active:translate-y-0">
+                            Soalan Seterusnya <i class="ph-bold ph-arrow-right inline-block ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result Screen -->
+                <div id="result-screen" class="hidden p-10 text-center flex flex-col items-center justify-center h-full min-h-[450px]">
+                    <div class="w-24 h-24 bg-gradient-to-br from-teal-100 to-emerald-100 text-teal-600 rounded-full flex items-center justify-center text-5xl mb-6 shadow-lg shadow-teal-100">
+                        <i class="ph-fill ph-trophy"></i>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-slate-800 mb-2">Tahniah!</h2>
+                    <p class="text-slate-500 mb-8 font-medium">Anda telah menamatkan kuiz ini.</p>
+                    
+                    <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 w-full max-w-sm mb-8 relative overflow-hidden mx-auto">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-teal-400 to-teal-500"></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Markah Anda</span>
+                        <div class="text-6xl font-black text-slate-800 mt-2 tracking-tight" id="final-score">0%</div>
+                        <p id="score-message" class="text-sm font-bold text-teal-600 mt-2 bg-teal-50 inline-block px-3 py-1 rounded-full border border-teal-100">Hebat!</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 w-full max-w-sm mx-auto">
+                        <button onclick="reloadPage()" class="flex-1 bg-white border-2 border-teal-200 text-teal-600 px-6 py-3 rounded-xl font-bold hover:bg-teal-50 transition shadow-sm">
+                            Ulang Semula
+                        </button>
+                        <button onclick="window.location.href='../menu_tajwid.html'" class="flex-1 bg-teal-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-200">
+                            Menu Bidang Tajwid
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-slate-500 text-sm font-semibold border-t border-teal-100 mt-auto bg-white/50">
+        <p>© 2026 BijakDeen - Laman Pendidikan Islam Generasi Alpha</p>
+    </footer>
+
+    <script>
+        // FUNGSI FLIP KAD IMBAS
+        function flipCard(cardWrapper) {
+            const innerCard = cardWrapper.querySelector('.flip-card-inner');
+            innerCard.classList.toggle('flipped');
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+
+        // DATA SOALAN KUIZ MAD LIN
+        const quizData = [
+            { 
+                q: "Mad Lin berlaku apabila huruf Waw (وْ) atau Ya (يْ) sakinah didahului oleh huruf berbaris...", 
+                options: ["Atas (Fathah)", "Bawah (Kasrah)", "Depan (Dammah)", "Sukun (Mati)"], 
+                correct: 0 
+            },
+            { 
+                q: "Berapakah kadar panjang harakat bagi bacaan Mad Lin ketika dibaca secara WAKAF (berhenti)?", 
+                options: ["2, 4, atau 6 harakat", "2 harakat sahaja", "6 harakat sahaja", "Tiada sebarang mad"], 
+                correct: 0 
+            },
+            { 
+                q: "Bagaimanakah cara membaca Mad Lin sekiranya dibaca secara WASAL (bersambung)?", 
+                options: ["Dibaca 6 harakat", "Dibaca lembut tanpa sebarang kadar mad", "Dibaca 2 atau 4 harakat", "Boleh pilih mana-mana kadar"], 
+                correct: 1 
+            },
+            { 
+                q: "Antara kalimah berikut, yang manakah mengandungi hukum Mad Lin ketika wakaf?", 
+                options: ["مِّنْ خَوْفٍۭ", "يَعْمَلُونَ", "ٱلْحَمْدُ", "جَآءَ"], 
+                correct: 0 
+            },
+            { 
+                q: "Apakah hukum membaca Mad Lin ketika berhenti (wakaf)?", 
+                options: ["Wajib dibaca 6 harakat", "Harus dibaca dengan pilihan 2, 4, atau 6 harakat", "Haram memanjangkan bacaan", "Harus dibaca 2 harakat sahaja"], 
+                correct: 1 
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let isAnswered = false;
+
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQEl = document.getElementById('current-q');
+        const progressBar = document.getElementById('progress-bar');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackText = document.getElementById('feedback-text');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+
+        function loadQuestion() {
+            isAnswered = false;
+            const data = quizData[currentQuestion];
+            currentQEl.innerText = currentQuestion + 1;
+            questionText.innerText = data.q;
+            
+            // Hitung progress
+            const progress = (currentQuestion / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            optionsContainer.innerHTML = '';
+            feedbackArea.classList.add('hidden');
+
+            data.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn w-full text-left p-4 rounded-xl font-semibold text-slate-600 bg-white shadow-sm flex items-center gap-3 transition-colors';
+                const labels = ["A", "B", "C", "D"];
+                btn.innerHTML = `<span class="bg-slate-100 text-slate-500 w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0 transition-colors">${labels[index]}</span> <span>${opt}</span>`;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            if(isAnswered) return;
+            isAnswered = true;
+            const data = quizData[currentQuestion];
+            const buttons = optionsContainer.querySelectorAll('button');
+
+            // Kunci semua butang
+            buttons.forEach(btn => btn.classList.add('opacity-60', 'pointer-events-none'));
+
+            if(selectedIndex === data.correct) {
+                score++;
+                btnElement.classList.remove('opacity-60', 'pointer-events-none');
+                btnElement.classList.add('correct-answer');
+                btnElement.querySelector('span').classList.replace('bg-slate-100', 'bg-teal-200');
+                btnElement.querySelector('span').classList.replace('text-slate-500', 'text-teal-800');
+                feedbackText.innerHTML = `<span class="flex items-center justify-center gap-2 text-teal-600"><i class="ph-fill ph-check-circle text-2xl"></i> Tahniah! Jawapan Tepat.</span>`;
+            } else {
+                btnElement.classList.remove('opacity-60', 'pointer-events-none');
+                btnElement.classList.add('wrong-answer');
+                btnElement.querySelector('span').classList.replace('bg-slate-100', 'bg-red-200');
+                btnElement.querySelector('span').classList.replace('text-slate-500', 'text-red-800');
+                
+                // Papar jawapan yang betul
+                const correctBtn = buttons[data.correct];
+                correctBtn.classList.remove('opacity-60', 'pointer-events-none');
+                correctBtn.classList.add('correct-answer');
+                correctBtn.querySelector('span').classList.replace('bg-slate-100', 'bg-teal-200');
+                correctBtn.querySelector('span').classList.replace('text-slate-500', 'text-teal-800');
+                feedbackText.innerHTML = `<span class="flex items-center justify-center gap-2 text-red-500"><i class="ph-fill ph-x-circle text-2xl"></i> Salah. Jawapan sebenar adalah bertanda hijau.</span>`;
+            }
+            feedbackArea.classList.remove('hidden');
+            
+            setTimeout(() => {
+                feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if(currentQuestion < quizData.length) {
+                loadQuestion();
+                window.scrollTo({ top: document.getElementById('quiz-section').offsetTop - 50, behavior: 'smooth' });
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            questionScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            progressBar.style.width = '100%';
+            const percentage = Math.round((score / quizData.length) * 100);
+            const scoreEl = document.getElementById('final-score');
+            
+            // Animasi Nombor Markah
+            let currentScore = 0;
+            const timer = setInterval(() => {
+                currentScore++;
+                scoreEl.innerText = `${currentScore}%`;
+                if(currentScore >= percentage) {
+                    clearInterval(timer);
+                    scoreEl.innerText = `${percentage}%`;
+                }
+            }, 20);
+
+            let msg = "", msgClass = "";
+            if(percentage >= 80) { msg = "MasyaAllah! Anda Memang Pakar! 🌟"; msgClass = "text-teal-600 bg-teal-50 border-teal-100"; }
+            else if(percentage >= 50) { msg = "Usaha Yang Baik! Teruskan Belajar. 👍"; msgClass = "text-blue-600 bg-blue-50 border-blue-100"; }
+            else { msg = "Jangan Putus Asa, Sila Baca Nota Semula. 💪"; msgClass = "text-orange-600 bg-orange-50 border-orange-100"; }
+            const msgEl = document.getElementById('score-message');
+            msgEl.innerText = msg;
+            msgEl.className = `text-sm font-bold mt-4 inline-block px-4 py-2 rounded-full border ${msgClass}`;
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
