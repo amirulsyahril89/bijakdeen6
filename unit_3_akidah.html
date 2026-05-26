@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unit 3: Beriman Kepada Qadak dan Qadar - Akidah</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { 
+            font-family: 'Nunito', sans-serif; 
+            background-color: #EFF6FF; 
+            color: #334155;
+            margin: 0;
+            padding: 0;
+        }
+        .arabic-text { font-family: 'Amiri', serif; direction: rtl; }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* =========================================
+           CSS PERMAINAN LARIAN TAKDIR (RUNNER)
+           ========================================= */
+        #game-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0f172a; 
+            color: white;
+            z-index: 9999;
+            display: none; 
+            font-family: 'Press Start 2P', cursive;
+            touch-action: none;
+            overflow: hidden;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #1e3a8a 0%, #0f172a 100%);
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .hud-text {
+            color: #38bdf8;
+            text-shadow: 2px 2px 0 #000;
+            font-size: 14px;
+        }
+
+        #question-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            background: rgba(30, 41, 59, 0.98);
+            border: 4px solid #38bdf8;
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.5);
+            z-index: 100;
+            display: none;
+        }
+
+        .opt-btn {
+            background: #475569;
+            border: 2px solid #64748b;
+            padding: 12px;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: left;
+        }
+        .opt-btn:hover { background: #38bdf8; color: #0f172a; border-color: #0284c7; }
+
+        .controls {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .btn-game {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+        }
+
+        .overlay-screen {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 110;
+        }
+
+        .title-glow {
+            color: #38bdf8;
+            text-shadow: 0 0 10px #0284c7;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-start {
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="main-header" class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition">
+                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+                    <i class="ph-bold ph-book-open text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-2xl leading-tight text-slate-800">Bijak<span class="text-indigo-600">Deen</span></h1>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Pendidikan Islam • Tahun 6</p>
+                </div>
+            </a>
+            <div class="hidden sm:flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full border border-blue-100">
+                <i class="ph-fill ph-compass text-blue-600 text-xl"></i>
+                <span class="text-sm font-bold text-blue-800">Bidang Akidah</span>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="flex-grow max-w-4xl mx-auto px-6 py-10 w-full fade-in">
+        
+        <!-- Butang Kembali -->
+        <button onclick="window.location.href='menu_akidah.html'" class="mb-8 flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold transition-colors group">
+            <div class="bg-white p-2 rounded-full shadow-sm border border-slate-200 group-hover:border-blue-200 group-hover:bg-blue-50 transition-all">
+                <i class="ph-bold ph-arrow-left"></i>
+            </div>
+            Kembali ke menu unit
+        </button>
+
+        <!-- Tajuk Unit -->
+        <div class="text-center mb-10">
+            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider mb-2 inline-block">Unit 3</span>
+            <h2 class="text-4xl font-extrabold text-slate-800">Beriman Kepada Qadak dan Qadar</h2>
+            <p class="text-slate-500 text-lg mt-2">Rukun Iman Ke-6: Tiang Pegangan Hidup Mukmin.</p>
+        </div>
+
+        <!-- NOTA PADAT -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <!-- Maksud Qadak & Qadar -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-blue-500 flex flex-col justify-between">
+                <div>
+                    <h3 class="font-black text-blue-600 mb-3 flex items-center gap-2">
+                        <i class="ph-fill ph-info"></i> Pengertian Qadak & Qadar
+                    </h3>
+                    <p class="text-sm leading-relaxed mb-4">
+                        <b>Qadak:</b> Ketentuan Allah SWT yang azali (sejak dahulu lagi) terhadap seluruh makhluk-Nya mengikut kehendak-Nya.
+                    </p>
+                    <p class="text-sm leading-relaxed">
+                        <b>Qadar:</b> Pelaksanaan ketentuan Allah SWT tersebut terhadap makhluk-Nya mengikut kadar dan ketetapan yang telah ditentukan sejak azali.
+                    </p>
+                </div>
+                <div class="mt-4 p-3 bg-blue-50 rounded-xl border border-blue-100">
+                    <p class="text-xs font-bold text-blue-800">Hukum Beriman:</p>
+                    <p class="text-xs text-blue-700 font-bold">Wajib (Rukun Iman Ke-6). Boleh membawa kufur jika ingkar.</p>
+                </div>
+            </div>
+
+            <!-- Dalil Naqli -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-indigo-500 flex flex-col justify-between text-right">
+                <div>
+                    <h3 class="font-black text-indigo-600 mb-3 text-left flex items-center gap-2">
+                        <i class="ph-fill ph-book-open"></i> Dalil Naqli
+                    </h3>
+                    <p class="arabic-text text-xl font-bold mb-2">إِنَّا كُلَّ شَيْءٍ خَلَقْنَاهُ بِقَدَرٍ</p>
+                    <p class="text-xs text-slate-500 italic text-left">(Surah Al-Qamar: 49)</p>
+                </div>
+                <p class="text-xs text-slate-500 leading-relaxed text-left border-l-2 border-indigo-400 pl-3 mt-4">
+                    Maksud: "Sesungguhnya Kami menciptakan tiap-tiap sesuatu mengikut takdir (ketentuan yang telah ditentukan)."
+                </p>
+            </div>
+
+            <!-- Bahagian Pembagian Qadak -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-emerald-500 md:col-span-2">
+                <h3 class="font-black text-emerald-600 mb-4 flex items-center gap-2">
+                    <i class="ph-fill ph-git-branch"></i> Pembahagian Qadak (Ketentuan)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                        <h4 class="font-bold text-emerald-800 mb-2">1. Qadak Mubram (Ketentuan Mutlak)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">Ketentuan Allah yang mutlak dan tidak boleh diubah oleh sesiapa pun dengan apa cara sekalipun.</p>
+                        <p class="text-xs font-bold text-emerald-700">Contoh: Ajal kematian, jantina kelahiran, bangsa, putaran bumi pada paksinya.</p>
+                    </div>
+                    <div class="p-4 bg-teal-50/50 rounded-xl border border-teal-100">
+                        <h4 class="font-bold text-teal-800 mb-2">2. Qadak Muallaq (Ketentuan Boleh Berubah)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">Ketentuan Allah yang boleh berubah mengikut usaha, ikhtiar, doa, serta tawakal hambanya.</p>
+                        <p class="text-xs font-bold text-teal-700">Contoh: Kesihatan (daripada sakit kepada sihat), kepintaran (malas kepada rajin), rezeki.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kesan Beriman -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-amber-500 md:col-span-2">
+                <h3 class="font-black text-amber-600 mb-3 flex items-center gap-2">
+                    <i class="ph-fill ph-shield-check"></i> Kesan Beriman kepada Qadak & Qadar
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                        <h4 class="font-bold text-amber-800 mb-1">Mendidik Jiwa Sabar & Reda</h4>
+                        <p class="text-slate-600">Reda menerima setiap musibah atau ujian takdir, sedar segalanya mempunyai hikmah Allah.</p>
+                    </div>
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                        <h4 class="font-bold text-amber-800 mb-1">Mengelak Sifat Sombong</h4>
+                        <p class="text-slate-600">Sedar kejayaan adalah berkat pertolongan Allah, bukan semata-mata usaha sendiri.</p>
+                    </div>
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                        <h4 class="font-bold text-amber-800 mb-1">Berusaha & Bertawakal</h4>
+                        <p class="text-slate-600">Sentiasa rajin berusaha, berdoa bersungguh-sungguh dan meletakkan pergantungan penuh kepada Allah.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- UJI MINDA LAUNCHER -->
+        <section class="bg-slate-800 rounded-3xl p-10 text-center text-white shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 opacity-10 text-9xl -rotate-12"><i class="ph-fill ph-rocket-launch"></i></div>
+            <div class="relative z-10">
+                <h3 class="text-3xl font-black mb-4">Uji Minda: Larian Takdir</h3>
+                <p class="mb-8 text-blue-200">Kawal pejalan kaki melompati batu "Putus Asa" 🪨 dan tangkap "Buku Doa" 📜 untuk membuka soalan takdir!</p>
+                <button onclick="openGame()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95">
+                    MULA PERMAINAN <i class="ph-bold ph-play"></i>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-slate-400 text-sm font-semibold border-t border-blue-100 mt-auto bg-white/90">
+        <p>© 2026 BijakDeen - Pendidikan Islam Generasi Alpha</p>
+    </footer>
+
+    <!-- =========================================
+         VIEW PERMAINAN (PLATFORMER RUNNER)
+         ========================================= -->
+    <div id="game-view">
+        <button onclick="closeGame()" class="absolute top-5 right-5 bg-white/10 p-2 rounded-lg z-[200] text-white font-bold" style="font-family:sans-serif;">X Keluar</button>
+        
+        <div id="game-container">
+            <canvas id="gameCanvas"></canvas>
+            
+            <div class="ui-layer">
+                <div class="hud-text">SKOR: <span id="score">0</span> / 100</div>
+                <div class="hud-text">NYAWA: <span id="lives">❤️❤️❤️</span></div>
+            </div>
+
+            <!-- Question Display -->
+            <div id="question-display">
+                <div class="flex justify-between items-center mb-3">
+                    <span id="q-number" class="text-xs font-bold text-yellow-400">SOALAN 1 / 10</span>
+                    <span id="q-kbat" class="hidden bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-black">KBAT</span>
+                </div>
+                <p id="q-text" class="text-white font-bold mb-4">Soalan?</p>
+                <div id="options-box"></div>
+            </div>
+
+            <!-- Jump Controls for Mobile -->
+            <div class="controls sm:hidden">
+                <div class="btn-game" id="jumpBtn"><i class="ph-bold ph-arrow-up"></i></div>
+            </div>
+
+            <div id="start-screen" class="overlay-screen">
+                <h1 class="title-glow">LARIAN<br>TAKDIR</h1>
+                <p style="font-family:sans-serif; font-size:12px; margin-bottom:20px; color:#cbd5e1; text-align:center; padding: 0 20px;">Lompat melepasi batu Putus Asa 🪨.<br>Kumpul kitab doa 📜 untuk menjawab 10 soalan takdir!</p>
+                <button class="btn-start" onclick="startGame()">MULA LARIAN</button>
+            </div>
+
+            <div id="over-screen" class="overlay-screen" style="display:none;">
+                <h1 class="title-glow" id="status-title">TAMAT</h1>
+                <p style="font-family:sans-serif; margin-bottom:10px;">Skor Anda: <span id="final-score">0</span></p>
+                <p id="feedback-msg" style="font-family:sans-serif; font-size: 14px; margin-bottom: 25px; color: #cbd5e1; padding: 0 20px; text-align:center;"></p>
+                <button class="btn-start" onclick="startGame()">MAIN LAGI</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        let cw, ch, gameLoop, isPlaying = false, score = 0, lives = 3, currentQuestionIndex = 0;
+
+        // Player & Game Physics
+        const player = {
+            x: 80,
+            y: 0,
+            w: 30,
+            h: 45,
+            vy: 0,
+            gravity: 1.2,
+            jumpForce: -18,
+            isGrounded: false
+        };
+
+        let obstacles = [];
+        let scrollItems = [];
+        const groundY = 0.75; // Ground at 75% of height
+
+        // 10 SOALAN (6 BIASA, 4 KBAT)
+        const quiz = [
+            { q: "Apakah maksud Qadak dari segi bahasa?", a: ["Pelaksanaan ketentuan", "Ketentuan", "Sukatan dan kadar"], c: 1, kbat: false },
+            { q: "Apakah maksud Qadar dari segi bahasa?", a: ["Ketentuan", "Sukatan atau kadar", "Perubahan ketentuan"], c: 1, kbat: false },
+            { q: "Beriman kepada Qadak dan Qadar merupakan Rukun Iman yang ke-___.", a: ["Empat", "Lima", "Enam"], c: 2, kbat: false },
+            { q: "Manakah antara berikut merupakan contoh bagi Qadak Mubram?", a: ["Ajal kematian manusia", "Tahap kepintaran murid", "Kesihatan tubuh badan"], c: 0, kbat: false },
+            { q: "Apakah cara terbaik mengubah takdir di bawah Qadak Muallaq?", a: ["Berdiam diri sahaja", "Doa, usaha, ikhtiar, dan tawakal", "Meminta bantuan peramal nasib"], c: 1, kbat: false },
+            { q: "Apakah hukum beriman kepada Qadak dan Qadar?", a: ["Harus", "Sunat", "Wajib"], c: 2, kbat: false },
+            { q: "KBAT: Azman mahu cemerlang dalam peperiksaan. Apakah tindakan paling tepat berdasarkan konsep Qadak Muallaq?", a: ["Belajar bersungguh-sungguh, berdoa, dan bertawakal", "Tidur secukupnya dan berserah bulat-bulat", "Yakin dia pandai dan tidak perlu mengulang kaji"], c: 0, kbat: true },
+            { q: "KBAT: Mengapakah Allah merahsiakan tarikh ajal kematian (Qadak Mubram) daripada manusia?", a: ["Supaya manusia sentiasa bersiap sedia dengan amal soleh", "Bagi membolehkan manusia berseronok tanpa risau", "Sebab kematian itu tidak penting"], c: 0, kbat: true },
+            { q: "KBAT: Rumah Fatimah rosak akibat dilanda banjir besar. Sikap manakah menunjukkan dia reda dengan takdir Allah?", a: ["Menangis meraung dan mempersoalkan takdir", "Sabar, reda, dan berdoa memohon ganti yang lebih baik", "Memulaukan rakan-rakan yang tidak membantunya"], c: 1, kbat: true },
+            { q: "KBAT: Adakah bertawakal bermaksud terus berserah tanpa perlu berusaha?", a: ["Ya, kerana semua perkara telah ditentukan oleh Allah", "Tidak, tawakal mestilah dilaksanakan SELEPAS berusaha bersungguh-sungguh", "Ya, kerana usaha kita tidak akan mengubah apa-apa"], c: 1, kbat: true }
+        ];
+
+        function resize() {
+            cw = canvas.width = window.innerWidth;
+            ch = canvas.height = window.innerHeight;
+            player.y = ch * groundY - player.h;
+        }
+
+        window.addEventListener('resize', resize);
+
+        function openGame() {
+            document.getElementById('game-view').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            resize();
+        }
+
+        function closeGame() {
+            document.getElementById('game-view').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            isPlaying = false;
+            cancelAnimationFrame(gameLoop);
+        }
+
+        function startGame() {
+            score = 0; lives = 3; obstacles = []; scrollItems = []; currentQuestionIndex = 0;
+            isPlaying = true;
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('over-screen').style.display = 'none';
+            document.getElementById('score').innerText = score;
+            document.getElementById('lives').innerText = "❤️❤️❤️";
+            player.y = ch * groundY - player.h;
+            player.vy = 0;
+            update();
+        }
+
+        function spawnObstacle() {
+            obstacles.push({
+                x: cw + 50,
+                y: ch * groundY - 30,
+                w: 30,
+                h: 30,
+                speed: 6 + Math.random() * 2
+            });
+        }
+
+        function spawnScroll() {
+            scrollItems.push({
+                x: cw + 150,
+                y: ch * groundY - 90 - Math.random() * 40,
+                w: 30,
+                h: 30,
+                speed: 5
+            });
+        }
+
+        function drawBackgroundAndGround() {
+            // Draw Ground
+            ctx.fillStyle = '#10b981';
+            ctx.fillRect(0, ch * groundY, cw, ch * (1 - groundY));
+            
+            // Soil layer
+            ctx.fillStyle = '#047857';
+            ctx.fillRect(0, ch * groundY + 15, cw, ch * (1 - groundY));
+        }
+
+        function drawPlayer() {
+            // Player - Cute running/jumping star
+            ctx.save();
+            ctx.translate(player.x + player.w / 2, player.y + player.h / 2);
+            
+            // Draw a cute mukmin character or yellow star shape
+            ctx.fillStyle = '#60a5fa'; // Blue suit
+            ctx.beginPath();
+            ctx.arc(0, -10, 12, 0, Math.PI * 2); // Head
+            ctx.fill();
+
+            ctx.fillStyle = '#3b82f6';
+            ctx.fillRect(-10, 2, 20, 20); // Torso
+
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.arc(0, -12, 4, 0, Math.PI * 2); // Songkok/Cap
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawEntities() {
+            // Draw Obstacles (Batu Putus Asa)
+            obstacles.forEach(obs => {
+                ctx.fillStyle = '#475569';
+                ctx.beginPath();
+                ctx.arc(obs.x + obs.w/2, obs.y + obs.h/2, obs.w/2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#1e293b';
+                ctx.font = '16px serif';
+                ctx.fillText('🪨', obs.x + 3, obs.y + 20);
+            });
+
+            // Draw Kitab Doa
+            scrollItems.forEach(item => {
+                ctx.font = '28px serif';
+                ctx.fillText('📜', item.x, item.y + 20);
+            });
+        }
+
+        function triggerQuiz() {
+            isPlaying = false;
+            
+            if (currentQuestionIndex >= quiz.length) {
+                endGame(true);
+                return;
+            }
+
+            const qData = quiz[currentQuestionIndex];
+            
+            // Set metadata
+            document.getElementById('q-number').innerText = `SOALAN ${currentQuestionIndex + 1} / 10`;
+            if (qData.kbat) {
+                document.getElementById('q-kbat').classList.remove('hidden');
+            } else {
+                document.getElementById('q-kbat').classList.add('hidden');
+            }
+
+            document.getElementById('q-text').innerText = qData.q;
+            const box = document.getElementById('options-box');
+            box.innerHTML = '';
+            
+            qData.a.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'opt-btn';
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    if (index === qData.c) {
+                        score += 10;
+                        document.getElementById('score').innerText = score;
+                    } else {
+                        lives--;
+                        updateLivesHUD();
+                    }
+                    document.getElementById('question-display').style.display = 'none';
+                    currentQuestionIndex++;
+                    
+                    if (lives > 0) {
+                        if (currentQuestionIndex >= quiz.length) {
+                            endGame(true);
+                        } else {
+                            isPlaying = true;
+                            // Reset obstacle and scroll to prevent immediate collision on resume
+                            obstacles = [];
+                            scrollItems = [];
+                            update();
+                        }
+                    }
+                };
+                box.appendChild(btn);
+            });
+            document.getElementById('question-display').style.display = 'block';
+        }
+
+        function updateLivesHUD() {
+            let h = '';
+            for(let i=0; i<lives; i++) h += '❤️';
+            document.getElementById('lives').innerText = h || '💀';
+            if(lives <= 0) endGame(false);
+        }
+
+        function endGame(isWin) {
+            isPlaying = false;
+            document.getElementById('over-screen').style.display = 'flex';
+            document.getElementById('final-score').innerText = score + " / 100";
+            
+            const title = document.getElementById('status-title');
+            const feedbackMsg = document.getElementById('feedback-msg');
+            
+            if (isWin && score === 100) {
+                title.innerText = "TAHNIAH! 🏆";
+                title.style.color = "#4ade80";
+                feedbackMsg.innerText = "Luar biasa, cemerlang! Anda memperolehi MARKAH PENUH 100/100 dalam Misi Qadak dan Qadar!";
+            } else if (isWin) {
+                title.innerText = "TAHNIAH!";
+                title.style.color = "#38bdf8";
+                feedbackMsg.innerText = `Bagus! Anda berjaya menyelesaikan larian dengan skor ${score}/100. Sila cuba lagi untuk markah penuh!`;
+            } else {
+                title.innerText = "MISI GAGAL";
+                title.style.color = "#ef4444";
+                feedbackMsg.innerText = `Nyawa anda habis! Skor anda ialah ${score}/100. Jangan putus asa, mari baca nota di atas dan cuba lagi!`;
+            }
+        }
+
+        function jump() {
+            if (player.isGrounded && isPlaying) {
+                player.vy = player.jumpForce;
+                player.isGrounded = false;
+            }
+        }
+
+        function update() {
+            if (!isPlaying) return;
+            ctx.clearRect(0, 0, cw, ch);
+
+            // Apply Gravity
+            player.vy += player.gravity;
+            player.y += player.vy;
+
+            const actualGround = ch * groundY - player.h;
+            if (player.y >= actualGround) {
+                player.y = actualGround;
+                player.vy = 0;
+                player.isGrounded = true;
+            }
+
+            // Spawn Entities
+            if (Math.random() < 0.015 && obstacles.length < 2) {
+                spawnObstacle();
+            }
+            if (Math.random() < 0.01 && scrollItems.length < 1) {
+                spawnScroll();
+            }
+
+            // Update Obstacles
+            obstacles.forEach((obs, index) => {
+                obs.x -= obs.speed;
+                // Collision check
+                if (obs.x < player.x + player.w && obs.x + obs.w > player.x &&
+                    obs.y < player.y + player.h && obs.y + obs.h > player.y) {
+                    lives--;
+                    updateLivesHUD();
+                    obstacles.splice(index, 1);
+                }
+                if (obs.x < -50) obstacles.splice(index, 1);
+            });
+
+            // Update Scrolls
+            scrollItems.forEach((item, index) => {
+                item.x -= item.speed;
+                // Collision check
+                if (item.x < player.x + player.w && item.x + item.w > player.x &&
+                    item.y < player.y + player.h && item.y + item.h > player.y) {
+                    scrollItems.splice(index, 1);
+                    triggerQuiz();
+                }
+                if (item.x < -50) scrollItems.splice(index, 1);
+            });
+
+            drawBackgroundAndGround();
+            drawPlayer();
+            drawEntities();
+            
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        // Input
+        window.addEventListener('keydown', e => {
+            if(e.key === ' ' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                jump();
+            }
+        });
+
+        // Mobile touch jump
+        document.getElementById('jumpBtn').ontouchstart = (e) => {
+            e.preventDefault();
+            jump();
+        };
+        canvas.ontouchstart = () => {
+            jump();
+        };
+
+    </script>
+</body>
+</html>
