@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unit 2: Nama Allah Al-'Adlu - Akidah</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { 
+            font-family: 'Nunito', sans-serif; 
+            background-color: #EFF6FF; 
+            color: #334155;
+            margin: 0;
+            padding: 0;
+        }
+        .arabic-text { font-family: 'Amiri', serif; direction: rtl; }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* =========================================
+           CSS PERMAINAN MISI KEADILAN (CATCHER)
+           ========================================= */
+        #game-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0f172a; 
+            color: white;
+            z-index: 9999;
+            display: none; 
+            font-family: 'Press Start 2P', cursive;
+            touch-action: none;
+            overflow: hidden;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #1e293b 0%, #0f172a 100%);
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .hud-text {
+            color: #fbbf24;
+            text-shadow: 2px 2px 0 #000;
+            font-size: 14px;
+        }
+
+        #question-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            background: rgba(30, 41, 59, 0.98);
+            border: 4px solid #fbbf24;
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 0 35px rgba(251, 191, 36, 0.5);
+            z-index: 100;
+            display: none;
+        }
+
+        .opt-btn {
+            background: #475569;
+            border: 2px solid #64748b;
+            padding: 12px;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: left;
+        }
+        .opt-btn:hover { background: #fbbf24; color: #0f172a; border-color: #f59e0b; }
+
+        .controls {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 20;
+        }
+
+        .btn-game {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            backdrop-filter: blur(5px);
+        }
+
+        .overlay-screen {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 110;
+        }
+
+        .title-glow {
+            color: #fbbf24;
+            text-shadow: 0 0 10px #f59e0b;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-start {
+            background: #fbbf24;
+            color: #0f172a;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="main-header" class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition">
+                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+                    <i class="ph-bold ph-book-open text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-2xl leading-tight text-slate-800">Bijak<span class="text-indigo-600">Deen</span></h1>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Pendidikan Islam • Tahun 6</p>
+                </div>
+            </a>
+            <div class="hidden sm:flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full border border-blue-100">
+                <i class="ph-fill ph-scales text-blue-600 text-xl"></i>
+                <span class="text-sm font-bold text-blue-800">Bidang Akidah</span>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="flex-grow max-w-4xl mx-auto px-6 py-10 w-full fade-in">
+        
+        <!-- Butang Kembali -->
+        <button onclick="window.location.href='menu_akidah.html'" class="mb-8 flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold transition-colors group">
+            <div class="bg-white p-2 rounded-full shadow-sm border border-slate-200 group-hover:border-blue-200 group-hover:bg-blue-50 transition-all">
+                <i class="ph-bold ph-arrow-left"></i>
+            </div>
+            Kembali ke menu unit
+        </button>
+
+        <!-- Tajuk Unit -->
+        <div class="text-center mb-10">
+            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider mb-2 inline-block">Unit 2</span>
+            <h2 class="text-4xl font-extrabold text-slate-800">Nama Allah Al-'Adlu</h2>
+            <p class="text-slate-500 text-lg mt-2">Allah Maha Adil Dalam Segala Sesuatu.</p>
+        </div>
+
+        <!-- NOTA PADAT -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-blue-500">
+                <h3 class="font-black text-blue-600 mb-3 flex items-center gap-2">
+                    <i class="ph-fill ph-info"></i> Pengertian Al-'Adlu
+                </h3>
+                <p class="text-sm leading-relaxed">
+                    Nama Allah <b>Al-'Adlu (الْعَدْلُ)</b> bermaksud Allah SWT Maha Adil. Allah meletakkan sesuatu pada tempatnya yang betul dan memberikan hak kepada yang berhak tanpa sebarang kezaliman.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-indigo-500">
+                <h3 class="font-black text-indigo-600 mb-3 flex items-center gap-2">
+                    <i class="ph-fill ph-book"></i> Dalil Naqli
+                </h3>
+                <p class="arabic-text text-xl font-bold mb-2">شَهِدَ ٱللَّهُ أَنَّهُۥ لَآ إِلَٰهَ إِلَّا هُوَ ... قَآئِمًۢا بِٱلْقِسْطِ</p>
+                <p class="text-xs text-slate-500 italic">(Surah Ali-Imran: 18)</p>
+                <p class="text-xs mt-2 font-bold">Maksud: "... Allah sentiasa mentadbirkan (seluruh alam) dengan keadilan."</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-emerald-500">
+                <h3 class="font-black text-emerald-600 mb-3 flex items-center gap-2">
+                    <i class="ph-fill ph-leaf"></i> Bukti Keadilan Allah
+                </h3>
+                <ul class="text-xs space-y-2 list-disc pl-4">
+                    <li><b>Manusia:</b> Anggota badan diletakkan di tempat yang paling sesuai (tangan, mata, akal).</li>
+                    <li><b>Alam:</b> Matahari memberi cahaya kepada semua tanpa pilih kasih.</li>
+                    <li><b>Oksigen:</b> Disediakan secara percuma untuk semua hidupan bernafas.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-amber-500">
+                <h3 class="font-black text-amber-600 mb-3 flex items-center gap-2">
+                    <i class="ph-fill ph-star"></i> Kesan Beriman
+                </h3>
+                <ul class="text-xs space-y-2 list-disc pl-4">
+                    <li>Sentiasa berhati-hati dalam setiap tindakan.</li>
+                    <li>Berlaku adil kepada diri sendiri dan orang lain.</li>
+                    <li>Yakin bahawa setiap amalan akan diadili di akhirat.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- UJI MINDA LAUNCHER -->
+        <section class="bg-slate-800 rounded-3xl p-10 text-center text-white shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 opacity-10 text-9xl -rotate-12"><i class="ph-fill ph-scales"></i></div>
+            <div class="relative z-10">
+                <h3 class="text-3xl font-black mb-4">Uji Minda: Misi Keadilan</h3>
+                <p class="mb-8 text-blue-200">Gerakkan bakul ke kiri dan kanan. Tangkap item kebaikan (timbangan/buku) dan jawab soalan untuk kumpul markah!</p>
+                <button onclick="openGame()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95">
+                    MULA PERMAINAN <i class="ph-bold ph-play"></i>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-slate-400 text-sm font-semibold border-t border-blue-100 mt-auto bg-white/90">
+        <p>© 2026 BijakDeen - Pendidikan Islam Generasi Alpha</p>
+    </footer>
+
+    <!-- =========================================
+         VIEW PERMAINAN
+         ========================================= -->
+    <div id="game-view">
+        <button onclick="closeGame()" class="absolute top-5 right-5 bg-white/10 p-2 rounded-lg z-[200] text-white font-bold" style="font-family:sans-serif;">X Keluar</button>
+        
+        <div id="game-container">
+            <canvas id="gameCanvas"></canvas>
+            
+            <div class="ui-layer">
+                <div class="hud-text">SKOR: <span id="score">0</span> / 100</div>
+                <div class="hud-text">NYAWA: <span id="lives">❤️❤️❤️</span></div>
+            </div>
+
+            <!-- Question Display Modded -->
+            <div id="question-display">
+                <div class="flex justify-between items-center mb-3">
+                    <span id="q-number" class="text-xs font-bold text-yellow-400">SOALAN 1 / 10</span>
+                    <span id="q-kbat" class="hidden bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-black">KBAT</span>
+                </div>
+                <p id="q-text" class="text-white font-bold mb-4">Soalan?</p>
+                <div id="options-box"></div>
+            </div>
+
+            <div class="controls sm:hidden">
+                <div class="btn-game" id="leftBtn"><i class="ph-bold ph-caret-left"></i></div>
+                <div class="btn-game" id="rightBtn"><i class="ph-bold ph-caret-right"></i></div>
+            </div>
+
+            <div id="start-screen" class="overlay-screen">
+                <h1 class="title-glow">MISI<br>KEADILAN</h1>
+                <p style="font-family:sans-serif; font-size:12px; margin-bottom:20px; color:#cbd5e1; text-align:center; padding: 0 20px;">Tangkap Timbangan & Buku Amalan.<br>Jawab 10 soalan (termasuk 4 KBAT) dengan tepat!</p>
+                <button class="btn-start" onclick="startGame()">MULA</button>
+            </div>
+
+            <div id="over-screen" class="overlay-screen" style="display:none;">
+                <h1 class="title-glow" id="status-title">TAMAT</h1>
+                <p style="font-family:sans-serif; margin-bottom:10px;">Skor Anda: <span id="final-score">0</span></p>
+                <p id="feedback-msg" style="font-family:sans-serif; font-size: 14px; margin-bottom: 25px; color: #a5f3fc; padding: 0 20px; text-align:center;"></p>
+                <button class="btn-start" onclick="startGame()">MAIN LAGI</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        let cw, ch, gameLoop, isPlaying = false, score = 0, lives = 3, currentQuestionIndex = 0;
+
+        const player = { x: 0, y: 0, w: 80, h: 20, speed: 15 };
+        let items = [];
+
+        // 10 SOALAN (6 BIASA, 4 KBAT)
+        const quiz = [
+            { q: "Apakah maksud nama Allah Al-'Adlu?", a: ["Allah Maha Adil", "Allah Maha Bijaksana", "Allah Maha Kaya"], c: 0, kbat: false },
+            { q: "Apakah hukum beriman dengan nama Allah Al-'Adlu?", a: ["Sunat", "Wajib", "Harus"], c: 1, kbat: false },
+            { q: "Dalil Naqli bagi nama Allah Al-'Adlu ada di dalam surah apa?", a: ["Ali-Imran ayat 18", "Al-Fatihah ayat 1", "Al-Ikhlas ayat 4"], c: 0, kbat: false },
+            { q: "Manakah bukti keadilan Allah SWT terhadap manusia?", a: ["Diberikan umur yang tersangat panjang", "Kedudukan anggota badan di tempat paling sesuai", "Dikurniakan harta melimpah ruah"], c: 1, kbat: false },
+            { q: "Apakah bukti keadilan Allah SWT terhadap makhluk di bumi secara umum?", a: ["Menyediakan oksigen secara percuma untuk bernafas", "Menurunkan hujan di satu kawasan sahaja", "Menjadikan semua manusia kaya raya"], c: 0, kbat: false },
+            { q: "Bagaimanakah cara kita mengamalkan keadilan terhadap diri sendiri?", a: ["Bekerja tanpa henti tanpa tidur", "Mengimbangi waktu antara belajar, ibadah dan rehat", "Hanya makan makanan yang mahal"], c: 1, kbat: false },
+            { q: "Jika seseorang melakukan kebaikan secara sembunyi tanpa pengetahuan sesiapa, bagaimanakah keadilan Allah dibuktikan?", a: ["Allah tetap melihat dan memberi ganjaran pahala di akhirat", "Amalan tersebut sia-sia dan tidak dinilai", "Kebaikan itu akan dipadamkan"], c: 0, kbat: true },
+            { q: "Mengapakah Allah tidak menjadikan semua manusia kaya raya di dunia ini?", a: ["Kerana Allah tidak adil kepada orang miskin", "Supaya manusia dapat saling melengkapi, bekerjasama, dan diuji ketaatan mereka", "Sebab kekayaan dunia hanya untuk orang kafir sahaja"], c: 1, kbat: true },
+            { q: "Ahmad dilahirkan cacat penglihatan tetapi mempunyai ingatan kuat dan berjaya menghafal Al-Quran. Bagaimanakah ia membuktikan keadilan Allah?", a: ["Allah menggantikan kekurangan fizikalnya dengan kelebihan akal dan ingatan yang luar biasa", "Situasi ini langsung tiada kaitan dengan keadilan Allah", "Allah menghukum Ahmad atas dosa lampau keluarganya"], c: 0, kbat: true },
+            { q: "Bagaimanakah keadilan mahkamah di dunia berbeza dengan keadilan Allah SWT di akhirat?", a: ["Keadilan mahkamah dunia adalah mutlak tanpa kesilapan", "Mahkamah dunia boleh tersilap kerana bukti tidak lengkap, manakala keadilan Allah adalah mutlak dan tepat", "Kedua-duanya adalah sama sahaja"], c: 1, kbat: true }
+        ];
+
+        function resize() {
+            cw = canvas.width = window.innerWidth;
+            ch = canvas.height = window.innerHeight;
+            player.y = ch - 120;
+            player.x = cw / 2 - player.w / 2;
+        }
+
+        window.addEventListener('resize', resize);
+
+        function openGame() {
+            document.getElementById('game-view').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            resize();
+        }
+
+        function closeGame() {
+            document.getElementById('game-view').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            isPlaying = false;
+            cancelAnimationFrame(gameLoop);
+        }
+
+        function startGame() {
+            score = 0; lives = 3; items = []; currentQuestionIndex = 0;
+            isPlaying = true;
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('over-screen').style.display = 'none';
+            document.getElementById('score').innerText = score;
+            document.getElementById('lives').innerText = "❤️❤️❤️";
+            update();
+        }
+
+        function spawnItem() {
+            const types = ['scale', 'book', 'bomb'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            items.push({
+                x: Math.random() * (cw - 40),
+                y: -50,
+                type: type,
+                speed: 3 + Math.random() * 3
+            });
+        }
+
+        function drawPlayer() {
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.roundRect(player.x, player.y, player.w, player.h, 5);
+            ctx.fill();
+            ctx.fillStyle = '#f59e0b';
+            ctx.fillRect(player.x + 10, player.y + 20, 60, 10);
+        }
+
+        function drawItems() {
+            items.forEach(item => {
+                if (item.type === 'scale') {
+                    ctx.font = '30px serif'; ctx.fillText('⚖️', item.x, item.y);
+                } else if (item.type === 'book') {
+                    ctx.font = '30px serif'; ctx.fillText('📖', item.x, item.y);
+                } else {
+                    ctx.font = '30px serif'; ctx.fillText('💣', item.x, item.y);
+                }
+            });
+        }
+
+        function triggerQuiz() {
+            isPlaying = false;
+            
+            if (currentQuestionIndex >= quiz.length) {
+                endGame(true);
+                return;
+            }
+
+            const qData = quiz[currentQuestionIndex];
+            
+            // Set metadata
+            document.getElementById('q-number').innerText = `SOALAN ${currentQuestionIndex + 1} / 10`;
+            if (qData.kbat) {
+                document.getElementById('q-kbat').classList.remove('hidden');
+            } else {
+                document.getElementById('q-kbat').classList.add('hidden');
+            }
+
+            document.getElementById('q-text').innerText = qData.q;
+            const box = document.getElementById('options-box');
+            box.innerHTML = '';
+            
+            qData.a.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'opt-btn';
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    if (index === qData.c) {
+                        score += 10;
+                        document.getElementById('score').innerText = score;
+                    } else {
+                        lives--;
+                        updateLivesHUD();
+                    }
+                    document.getElementById('question-display').style.display = 'none';
+                    currentQuestionIndex++;
+                    
+                    if (lives > 0) {
+                        if (currentQuestionIndex >= quiz.length) {
+                            endGame(true);
+                        } else {
+                            isPlaying = true;
+                            update();
+                        }
+                    }
+                };
+                box.appendChild(btn);
+            });
+            document.getElementById('question-display').style.display = 'block';
+        }
+
+        function updateLivesHUD() {
+            let h = '';
+            for(let i=0; i<lives; i++) h += '❤️';
+            document.getElementById('lives').innerText = h || '💀';
+            if(lives <= 0) endGame(false);
+        }
+
+        function endGame(isWin) {
+            isPlaying = false;
+            document.getElementById('over-screen').style.display = 'flex';
+            document.getElementById('final-score').innerText = score + " / 100";
+            
+            const title = document.getElementById('status-title');
+            const feedbackMsg = document.getElementById('feedback-msg');
+            
+            if (isWin && score === 100) {
+                title.innerText = "TAHNIAH! 🏆";
+                title.style.color = "#4ade80";
+                feedbackMsg.innerText = "MasyaAllah, cemerlang! Anda memperolehi MARKAH PENUH 100/100 dalam Misi Keadilan!";
+            } else if (isWin) {
+                title.innerText = "MISI SELESAI";
+                title.style.color = "#38bdf8";
+                feedbackMsg.innerText = `Bagus! Anda berjaya menamatkan misi dengan skor ${score}/100. Cuba lagi untuk skor penuh 100/100!`;
+            } else {
+                title.innerText = "MISI GAGAL";
+                title.style.color = "#ef4444";
+                feedbackMsg.innerText = `Nyawa anda telah habis! Skor akhir anda ialah ${score}/100. Sila baca semula nota di atas dan cuba lagi!`;
+            }
+        }
+
+        function update() {
+            if (!isPlaying) return;
+            ctx.clearRect(0, 0, cw, ch);
+
+            if (Math.random() < 0.02) spawnItem();
+
+            items.forEach((item, index) => {
+                item.y += item.speed;
+
+                // Collision
+                if (item.y + 30 > player.y && item.x > player.x && item.x < player.x + player.w) {
+                    if (item.type === 'bomb') {
+                        lives--;
+                        updateLivesHUD();
+                    } else {
+                        triggerQuiz();
+                    }
+                    items.splice(index, 1);
+                }
+
+                if (item.y > ch) items.splice(index, 1);
+            });
+
+            drawPlayer();
+            drawItems();
+            gameLoop = requestAnimationFrame(update);
+        }
+
+        // Input
+        let moveLeft = false, moveRight = false;
+        window.addEventListener('keydown', e => {
+            if(e.key === 'ArrowLeft') moveLeft = true;
+            if(e.key === 'ArrowRight') moveRight = true;
+        });
+        window.addEventListener('keyup', e => {
+            if(e.key === 'ArrowLeft') moveLeft = false;
+            if(e.key === 'ArrowRight') moveRight = false;
+        });
+
+        // Touch
+        document.getElementById('leftBtn').ontouchstart = () => moveLeft = true;
+        document.getElementById('leftBtn').ontouchend = () => moveLeft = false;
+        document.getElementById('rightBtn').ontouchstart = () => moveRight = true;
+        document.getElementById('rightBtn').ontouchend = () => moveRight = false;
+
+        setInterval(() => {
+            if (moveLeft && player.x > 0) player.x -= player.speed;
+            if (moveRight && player.x < cw - player.w) player.x += player.speed;
+        }, 20);
+
+    </script>
+</body>
+</html>
