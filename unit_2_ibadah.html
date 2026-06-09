@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unit 2: Rukhsah Solat Ketika Sakit - Ibadah</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Nunito', sans-serif; background-color: #FAF5FF; } /* Lilac/Purple 50 */
+        .arabic-text { font-family: 'Amiri', serif; direction: rtl; }
+        
+        /* Quiz Styles - Purple Theme */
+        .option-btn { transition: all 0.2s; border: 2px solid #E5E7EB; }
+        .option-btn:hover { border-color: #8b5cf6; background-color: #FAF5FF; }
+        .option-selected { border-color: #8b5cf6; background-color: #f3e8ff; color: #5b21b6; font-weight: bold; }
+        
+        .correct-answer { background-color: #d8b4fe !important; border-color: #8b5cf6 !important; color: #4c1d95; }
+        .wrong-answer { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #7f1d1d; }
+
+        /* Komik Panel Styles */
+        .comic-panel {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .comic-panel:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -3px rgba(139, 92, 246, 0.15);
+        }
+        
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Modal Image Zoom Styles */
+        #image-modal { backdrop-filter: blur(5px); transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-700">
+
+    <!-- Header -->
+    <header class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b-2 border-purple-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
+                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                    <i class="ph-bold ph-book-open text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-2xl leading-tight text-slate-800">Bijak<span class="text-indigo-600">Deen</span></h1>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Pendidikan Islam • Tahun 6</p>
+                </div>
+            </a>
+
+            <div class="hidden sm:flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-full border border-purple-100 shadow-sm">
+                <i class="ph-fill ph-person-simple-run text-purple-600 text-xl"></i>
+                <span class="text-sm font-bold text-purple-800">Bidang Ibadah</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto px-6 py-10 w-full fade-in">
+
+        <!-- Butang Kembali ke SENARAI UNIT IBADAH -->
+        <button onclick="window.location.href='menu_ibadah.html'" class="mb-8 flex items-center gap-2 text-slate-500 hover:text-purple-600 font-bold transition-colors group">
+            <div class="bg-white p-2 rounded-full shadow-sm border border-slate-200 group-hover:border-purple-200 group-hover:bg-purple-50 transition-all">
+                <i class="ph-bold ph-arrow-left"></i>
+            </div>
+            Kembali ke Senarai Unit Ibadah
+        </button>
+
+        <!-- Tajuk Unit -->
+        <div class="text-center mb-10">
+            <span class="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full border border-purple-200 uppercase tracking-wider mb-2 inline-block">Unit 2 • Ibadah</span>
+            <h2 class="text-4xl font-extrabold text-slate-800">Rukhsah Solat Ketika Sakit</h2>
+            <p class="text-slate-500 text-lg mt-2">Membuktikan kasih sayang Allah SWT dan keringanan syariat Islam.</p>
+        </div>
+
+        <!-- BAHAGIAN 1: KOMIK PEMBELAJARAN INTERAKTIF -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-6 bg-white p-4 rounded-2xl shadow-sm border border-purple-100 inline-flex">
+                <div class="bg-purple-100 p-2 rounded-lg text-purple-600">
+                    <i class="ph-fill ph-book-open-text text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-800">Komik Pembelajaran (Klik Panel untuk Zoom)</h2>
+            </div>
+            
+            <!-- Grid Komik 4 Panel -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Panel 1 -->
+                <div onclick="openComicModal(1)" class="comic-panel bg-white p-5 rounded-3xl border-2 border-purple-100 cursor-pointer flex flex-col justify-between h-[340px]">
+                    <div class="bg-purple-50 h-44 rounded-2xl flex items-center justify-center relative overflow-hidden p-4 border border-purple-100">
+                        <!-- SVG Ahmad terlantar sakit -->
+                        <svg class="w-full h-full text-purple-600" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="70" width="160" height="20" rx="4" fill="#a78bfa" />
+                            <rect x="20" y="90" width="16" height="20" fill="#6d28d9" />
+                            <rect x="164" y="90" width="16" height="20" fill="#6d28d9" />
+                            <circle cx="50" cy="55" r="12" fill="#fbcfe8" />
+                            <path d="M40 70 C40 60, 60 60, 60 70 Z" fill="#6366f1" />
+                            <rect x="62" y="60" width="110" height="15" rx="5" fill="#f3e8ff" />
+                            <path d="M120 40 C110 40, 100 45, 100 55" stroke="#475569" stroke-width="2" stroke-linecap="round" />
+                            <path d="M100 55 L95 50 M100 55 L105 50" stroke="#475569" stroke-width="2" />
+                        </svg>
+                        <div class="absolute top-2 left-2 bg-purple-600 text-white font-black text-xs px-3 py-1 rounded-full">Panel 1</div>
+                        <span class="absolute bottom-2 right-2 text-[10px] bg-slate-800/80 text-white px-2 py-0.5 rounded font-bold"><i class="ph ph-magnifying-glass-plus"></i> Klik</span>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-extrabold text-slate-800 text-base">Ahmad terlantar sakit di wad...</h4>
+                        <p class="text-xs text-slate-500 mt-1 italic">"Ustaz, saya sangat uzur untuk berdiri. Adakah saya dimaafkan untuk tidak solat?"</p>
+                    </div>
+                </div>
+
+                <!-- Panel 2 -->
+                <div onclick="openComicModal(2)" class="comic-panel bg-white p-5 rounded-3xl border-2 border-purple-100 cursor-pointer flex flex-col justify-between h-[340px]">
+                    <div class="bg-purple-50 h-44 rounded-2xl flex items-center justify-center relative overflow-hidden p-4 border border-purple-100">
+                        <!-- SVG Solat Duduk -->
+                        <svg class="w-full h-full text-purple-600" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="85" y="70" width="30" height="35" rx="2" fill="#4b5563" />
+                            <circle cx="100" cy="35" r="10" fill="#fbcfe8" />
+                            <rect x="92" y="47" width="16" height="25" rx="4" fill="#8b5cf6" />
+                            <path d="M92 72 L85 95 M108 72 L115 95" stroke="#8b5cf6" stroke-width="6" stroke-linecap="round" />
+                            <path d="M95 52 L80 65 M105 52 L120 65" stroke="#8b5cf6" stroke-width="5" stroke-linecap="round" />
+                        </svg>
+                        <div class="absolute top-2 left-2 bg-purple-600 text-white font-black text-xs px-3 py-1 rounded-full">Panel 2</div>
+                        <span class="absolute bottom-2 right-2 text-[10px] bg-slate-800/80 text-white px-2 py-0.5 rounded font-bold"><i class="ph ph-magnifying-glass-plus"></i> Klik</span>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-extrabold text-slate-800 text-base">Utamakan Solat Duduk</h4>
+                        <p class="text-xs text-slate-500 mt-1 italic">"Tidak Ahmad! Solat fardu itu wajib. Jika tidak mampu berdiri, solatlah secara duduk."</p>
+                    </div>
+                </div>
+
+                <!-- Panel 3 -->
+                <div onclick="openComicModal(3)" class="comic-panel bg-white p-5 rounded-3xl border-2 border-purple-100 cursor-pointer flex flex-col justify-between h-[340px]">
+                    <div class="bg-purple-50 h-44 rounded-2xl flex items-center justify-center relative overflow-hidden p-4 border border-purple-100">
+                        <!-- SVG Solat Mengiring / Menelentang -->
+                        <svg class="w-full h-full text-purple-600" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="30" y="80" width="140" height="15" fill="#e2e8f0" />
+                            <circle cx="45" cy="65" r="9" fill="#fbcfe8" />
+                            <rect x="56" y="60" width="110" height="20" rx="8" fill="#a78bfa" />
+                            <path d="M40 50 C50 50, 60 55, 65 65" stroke="#475569" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <div class="absolute top-2 left-2 bg-purple-600 text-white font-black text-xs px-3 py-1 rounded-full">Panel 3</div>
+                        <span class="absolute bottom-2 right-2 text-[10px] bg-slate-800/80 text-white px-2 py-0.5 rounded font-bold"><i class="ph ph-magnifying-glass-plus"></i> Klik</span>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-extrabold text-slate-800 text-base">Solat Berbaring & Menelentang</h4>
+                        <p class="text-xs text-slate-500 mt-1 italic">"Bagaimana jika tersangat lemah?" - "Boleh mengiring di rusuk kanan atau menelentang dengan kaki menghadap kiblat."</p>
+                    </div>
+                </div>
+
+                <!-- Panel 4 -->
+                <div onclick="openComicModal(4)" class="comic-panel bg-white p-5 rounded-3xl border-2 border-purple-100 cursor-pointer flex flex-col justify-between h-[340px]">
+                    <div class="bg-purple-50 h-44 rounded-2xl flex items-center justify-center relative overflow-hidden p-4 border border-purple-100">
+                        <!-- SVG Isyarat Kelopak Mata / Hati -->
+                        <svg class="w-full h-full text-purple-600" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="55" r="30" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="3" />
+                            <path d="M85 55 Q100 40 115 55" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="none" />
+                            <path d="M85 55 Q100 65 115 55" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="none" />
+                            <circle cx="100" cy="55" r="8" fill="#1d4ed8" />
+                            <path d="M100 10 L100 20 M100 90 L100 100" stroke="#f59e0b" stroke-width="2" />
+                        </svg>
+                        <div class="absolute top-2 left-2 bg-purple-600 text-white font-black text-xs px-3 py-1 rounded-full">Panel 4</div>
+                        <span class="absolute bottom-2 right-2 text-[10px] bg-slate-800/80 text-white px-2 py-0.5 rounded font-bold"><i class="ph ph-magnifying-glass-plus"></i> Klik</span>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-extrabold text-slate-800 text-base">Isyarat Mata & Isyarat Hati</h4>
+                        <p class="text-xs text-slate-500 mt-1 italic">"Gunakan isyarat kelopak mata. Jika akal masih sedar tetapi tidak mampu bergerak langsung, solatlah di dalam hati!"</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="relative flex py-5 items-center mb-10">
+            <div class="flex-grow border-t border-purple-200"></div>
+            <span class="flex-shrink-0 mx-4 text-purple-600 text-2xl"><i class="ph-fill ph-star"></i></span>
+            <div class="flex-grow border-t border-purple-200"></div>
+        </div>
+
+        <!-- BAHAGIAN 2: KUIZ INTERAKTIF (UJI MINDA) -->
+        <section id="quiz-section" class="max-w-3xl mx-auto">
+            <div class="flex items-center gap-3 mb-6 bg-white p-4 rounded-2xl shadow-sm border border-purple-100 inline-flex">
+                <div class="bg-orange-100 p-2 rounded-lg text-orange-600">
+                    <i class="ph-fill ph-brain text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-800">Uji Minda</h2>
+            </div>
+
+            <!-- Quiz Container -->
+            <div class="bg-white rounded-3xl shadow-xl shadow-purple-100/50 border-2 border-purple-50 overflow-hidden relative min-h-[400px]">
+                <!-- Progress Bar (Purple Theme) -->
+                <div class="w-full h-3 bg-slate-100">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-purple-400 to-purple-600 transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
+
+                <div id="question-screen" class="p-8 md:p-10">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-sm font-bold text-slate-400 uppercase tracking-wider">Soalan <span id="current-q" class="text-slate-800 text-lg">1</span> / 10</span>
+                        <span id="kbat-badge" class="hidden bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-lg border border-orange-200 flex items-center gap-1">
+                            <i class="ph-fill ph-fire"></i> KBAT
+                        </span>
+                    </div>
+
+                    <h3 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 mb-8 leading-relaxed">
+                        Soalan akan muncul di sini...
+                    </h3>
+
+                    <div id="options-container" class="space-y-3"></div>
+
+                    <!-- Feedback Area (Purple Theme) -->
+                    <div id="feedback-area" class="hidden mt-8 p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center animate-bounce-in">
+                        <p id="feedback-text" class="font-bold mb-4 text-lg"></p>
+                        <button onclick="nextQuestion()" class="bg-purple-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-purple-700 transition shadow-lg shadow-purple-200 hover:shadow-xl transform hover:-translate-y-1 active:translate-y-0">
+                            Soalan Seterusnya <i class="ph-bold ph-arrow-right inline-block ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result Screen -->
+                <div id="result-screen" class="hidden p-10 text-center flex flex-col items-center justify-center h-full min-h-[450px]">
+                    <div class="w-24 h-24 bg-gradient-to-br from-purple-100 to-indigo-100 text-purple-600 rounded-full flex items-center justify-center text-5xl mb-6 shadow-lg shadow-purple-100">
+                        <i class="ph-fill ph-trophy"></i>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-slate-800 mb-2">Tahniah!</h2>
+                    <p class="text-slate-500 mb-8 font-medium">Anda telah menamatkan kuiz Rukhsah Solat Ketika Sakit.</p>
+                    
+                    <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 w-full max-w-sm mb-8 relative overflow-hidden mx-auto">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-400 to-indigo-500"></div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Markah Anda</span>
+                        <div class="text-6xl font-black text-slate-800 mt-2 tracking-tight" id="final-score">0%</div>
+                        <p id="score-message" class="text-sm font-bold text-purple-600 mt-2 bg-purple-50 inline-block px-3 py-1 rounded-full border border-purple-100">Hebat!</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 w-full max-w-sm mx-auto">
+                        <button onclick="reloadPage()" class="flex-1 bg-white border-2 border-purple-200 text-purple-600 px-6 py-3 rounded-xl font-bold hover:bg-purple-50 transition shadow-sm">
+                            Ulang Semula
+                        </button>
+                        <button onclick="window.location.href='../menu_ibadah.html'" class="flex-1 bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition shadow-lg shadow-purple-200">
+                            Menu Bidang Ibadah
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-slate-500 text-sm font-semibold border-t border-purple-100 mt-auto bg-white/50">
+        <p>© 2026 BijakDeen - Laman Pendidikan Islam Generasi Alpha</p>
+    </footer>
+
+    <!-- INTERACTIVE COMIC DIALOG MODAL -->
+    <div id="image-modal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center p-4" onclick="closeModal()">
+        <div class="relative max-w-xl bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-purple-200" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute -top-12 right-0 text-white hover:text-purple-400 transition-colors">
+                <i class="ph-bold ph-x text-3xl"></i>
+            </button>
+            <div id="modal-content" class="text-center">
+                <!-- Kandungan diisi secara dinamik -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function reloadPage() {
+            location.reload();
+        }
+
+        // KANDUNGAN DETIL UNTUK MODAL KOMIK
+        const comicData = {
+            1: {
+                title: "Ahmad Terlantar Sakit",
+                desc: "Ahmad dimasukkan ke wad kerana demam panas dan kaki cedera. Dia bimbang tidak boleh berdiri untuk solat. Ustaz menasihatinya: 'Ahmad, solat fardu tidak boleh ditinggalkan selagi akal masih waras. Islam memberikan kemudahan (Rukhsah) mengikut kemampuan kita!'",
+                tip: "Hukum solat fardu ketika sakit: Tetap WAJIB."
+            },
+            2: {
+                title: "Cara 1: Solat Secara Duduk",
+                desc: "Jika tidak mampu berdiri atau berdiri akan memudaratkan penyakit: <br><br>1. Duduk dengan tegak menghadap kiblat (di atas lantai atau atas kerusi).<br>2. Ruku' dengan menundukkan badan sedikit ke hadapan sehingga dahi sejajar lutut.<br>3. Sujud seperti biasa di lantai, atau jika di atas kerusi, tundukkan badan lebih rendah daripada tunduk ruku'.",
+                tip: "Pilihan duduk: Duduk Iftirasy (seperti duduk tahiyat awal) adalah paling utama."
+            },
+            3: {
+                title: "Cara 2 & 3: Mengiring & Menelentang",
+                desc: "<b>Solat Mengiring:</b> Berbaring di atas rusuk kanan (atau rusuk kiri jika terpaksa) dengan muka dan dada menghadap kiblat. Ruku' dan sujud dilakukan menggunakan isyarat kepala.<br><br><b>Solat Menelentang:</b> Berbaring menelentang dengan kaki menghadap ke arah kiblat. Kepala dinaikkan sedikit dengan bantal agar muka dapat menghadap kiblat. Ruku' dan sujud menggunakan isyarat kepala.",
+                tip: "Isyarat kepala semasa sujud mestilah ditundukkan lebih rendah berbanding ruku'."
+            },
+            4: {
+                title: "Cara 4 & 5: Isyarat Mata & Isyarat Hati",
+                desc: "<b>Isyarat Mata:</b> Jika tidak mampu menggerakkan kepala, pesakit boleh solat menggunakan isyarat kelopak mata. Pejamkan mata sedikit untuk ruku', dan pejamkan mata lebih rapat untuk sujud.<br><br><b>Isyarat Hati:</b> Jika kelopak mata pun tidak berdaya, gunakan lintasan rukun solat di dalam hati secara tertib dari takbiratul ihram hingga salam.",
+                tip: "Allah Maha Pengasih. Selagi ada nyawa dan akal sedar, lakukan solat semampu mungkin."
+            }
+        };
+
+        function openComicModal(panelId) {
+            const modal = document.getElementById('image-modal');
+            const container = document.getElementById('modal-content');
+            const data = comicData[panelId];
+
+            container.innerHTML = `
+                <span class="bg-purple-100 text-purple-700 text-xs font-black px-4 py-1.5 rounded-full border border-purple-200 uppercase tracking-widest inline-block mb-4">PANEL ${panelId}</span>
+                <h3 class="text-2xl font-black text-slate-800 mb-4">${data.title}</h3>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6 text-justify">${data.desc}</p>
+                <div class="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-left flex items-start gap-2">
+                    <span class="text-amber-500 text-lg"><i class="ph-fill ph-lightbulb"></i></span>
+                    <p class="text-xs text-amber-800 font-bold">${data.tip}</p>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // DATA SOALAN KUIZ (6 BIASA, 4 KBAT)
+        const quizData = [
+            { q: "Apakah maksud 'Rukhsah' dari segi bahasa?", options: ["Kesukaran", "Kemudahan", "Ketetapan asal", "Perubahan rukun"], correct: 1, kbat: false },
+            { q: "Apakah hukum menunaikan solat fardu bagi pesakit yang terlantar di hospital?", options: ["Wajib", "Sunat", "Harus", "Gugur kewajipan"], correct: 0, kbat: false },
+            { q: "Sekiranya pesakit tidak mampu berdiri, bagaimanakah cara solat yang paling utama baginya?", options: ["Solat secara mengiring", "Solat secara duduk", "Solat secara menelentang", "Solat qada' sahaja"], correct: 1, kbat: false },
+            { q: "Bagaimanakah kedudukan kaki pesakit yang melakukan solat secara menelentang?", options: ["Kaki diangkat ke atas bantal", "Kaki dihalakan menghadap ke arah kiblat", "Kaki dilipat bersilang", "Kedudukan kaki bebas"], correct: 1, kbat: false },
+            { q: "Semasa melakukan solat secara isyarat kelopak mata, bagaimanakah isyarat dilakukan untuk rukun sujud?", options: ["Mengerdipkan mata dengan laju", "Pejamkan mata dengan lebih rapat berbanding ruku'", "Buka mata sebesar-besarnya", "Isyarat dengan anak mata sahaja"], correct: 1, kbat: false },
+            { q: "Apakah cara terakhir menunaikan solat fardu sekiranya seluruh anggota fizikal langsung tidak boleh bergerak?", options: ["Solat dengan isyarat hati", "Membayar fidyah solat", "Menunggu sihat baru solat", "Tinggalkan tanpa berdosa"], correct: 0, kbat: false },
+            { 
+                q: "KBAT: Imran mengalami kecederaan patah jari manis tangan kiri sahaja. Bagaimanakah cara dia patut menunaikan solat?", 
+                options: [
+                    "Boleh solat secara duduk kerana ada kecederaan", 
+                    "Wajib solat berdiri seperti biasa kerana masih mampu berdiri", 
+                    "Dibenarkan solat menelentang", 
+                    "Gugur kewajipan solat fardu sehingga jari sembuh"
+                ], 
+                correct: 1, 
+                kbat: true 
+            },
+            { 
+                q: "KBAT: Fatimah solat secara duduk di atas kerusi. Dia menundukkan badannya untuk ruku' dan sujud dengan paras kecondongan yang sama rata. Adakah sah solat Fatimah?", 
+                options: [
+                    "Sah, kerana dia dikira dalam keadaan darurat sakit", 
+                    "Tidak sah, kerana tunduk untuk sujud mestilah lebih rendah daripada ruku'", 
+                    "Sah, asalkan hatinya berniat sujud", 
+                    "Tidak sah, dia patut solat berbaring sahaja"
+                ], 
+                correct: 1, 
+                kbat: true 
+            },
+            { 
+                q: "KBAT: Mengapakah syariat Islam mewajibkan pesakit terlantar terus solat tanpa sebarang alasan selagi akal masih sedar?", 
+                options: [
+                    "Kerana solat adalah tiang agama dan tanda kesyukuran serta ketaatan mutlak hamba kepada Pencipta", 
+                    "Supaya pesakit cepat sembuh dari penyakit fizikal", 
+                    "Bagi memastikan jururawat hospital senang menguruskan pesakit", 
+                    "Sebab Islam tiada belas kasihan kepada orang yang sakit"
+                ], 
+                correct: 0, 
+                kbat: true 
+            },
+            { 
+                q: "KBAT: Apakah pengajaran moral dan ketuhanan terbesar di sebalik kelonggaran Rukhsah Solat Ketika Sakit?", 
+                options: [
+                    "Islam adalah agama yang amat rigid dan menyusahkan", 
+                    "Membuktikan kasih sayang, keadilan, dan rahmat Allah SWT yang tidak mahu membebankan hamba-Nya", 
+                    "Mengajar kita untuk sentiasa culas dalam beribadah", 
+                    "Membuktikan bahawa ibadah solat boleh ditukar-tukar sesuka hati"
+                ], 
+                correct: 1, 
+                kbat: true 
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let isAnswered = false;
+
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQEl = document.getElementById('current-q');
+        const progressBar = document.getElementById('progress-bar');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackText = document.getElementById('feedback-text');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const kbatBadge = document.getElementById('kbat-badge');
+
+        function loadQuestion() {
+            isAnswered = false;
+            const data = quizData[currentQuestion];
+            currentQEl.innerText = currentQuestion + 1;
+            questionText.innerText = data.q;
+            
+            // Update progress bar
+            const progress = (currentQuestion / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Tunjuk lencana KBAT jika soalan berstatus KBAT
+            if(data.kbat) { 
+                kbatBadge.classList.remove('hidden'); 
+                kbatBadge.classList.add('flex'); 
+            } else { 
+                kbatBadge.classList.add('hidden'); 
+                kbatBadge.classList.remove('flex'); 
+            }
+
+            optionsContainer.innerHTML = '';
+            feedbackArea.classList.add('hidden');
+
+            // Hasilkan butang pilihan jawapan
+            data.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn w-full text-left p-4 rounded-xl font-semibold text-slate-600 bg-white shadow-sm flex items-center gap-3 transition-colors';
+                const labels = ["A", "B", "C", "D"];
+                
+                btn.innerHTML = `<span class="bg-slate-100 text-slate-500 w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0 transition-colors">${labels[index]}</span> <span>${opt}</span>`;
+                
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            if(isAnswered) return;
+            isAnswered = true;
+            
+            const data = quizData[currentQuestion];
+            const buttons = optionsContainer.querySelectorAll('button');
+
+            // Kunci semua butang
+            buttons.forEach(btn => btn.classList.add('opacity-60', 'pointer-events-none'));
+
+            if(selectedIndex === data.correct) {
+                // Jawapan Betul
+                score++;
+                btnElement.classList.remove('opacity-60', 'pointer-events-none');
+                btnElement.classList.add('correct-answer');
+                btnElement.querySelector('span').classList.replace('bg-slate-100', 'bg-purple-200');
+                btnElement.querySelector('span').classList.replace('text-slate-500', 'text-purple-800');
+                feedbackText.innerHTML = `<span class="flex items-center justify-center gap-2 text-purple-600"><i class="ph-fill ph-check-circle text-2xl"></i> MasyAllah! Jawapan Anda Tepat sekali.</span>`;
+            } else {
+                // Jawapan Salah
+                btnElement.classList.remove('opacity-60', 'pointer-events-none');
+                btnElement.classList.add('wrong-answer');
+                btnElement.querySelector('span').classList.replace('bg-slate-100', 'bg-red-200');
+                btnElement.querySelector('span').classList.replace('text-slate-500', 'text-red-800');
+                
+                // Tunjukkan jawapan yang betul
+                const correctBtn = buttons[data.correct];
+                correctBtn.classList.remove('opacity-60', 'pointer-events-none');
+                correctBtn.classList.add('correct-answer');
+                correctBtn.querySelector('span').classList.replace('bg-slate-100', 'bg-purple-200');
+                correctBtn.querySelector('span').classList.replace('text-slate-500', 'text-purple-800');
+                
+                feedbackText.innerHTML = `<span class="flex items-center justify-center gap-2 text-red-500"><i class="ph-fill ph-x-circle text-2xl"></i> Salah. Jawapan sebenar bertanda ungu.</span>`;
+            }
+            
+            feedbackArea.classList.remove('hidden');
+            
+            // Scroll ke bahagian maklum balas dengan animasi lancar
+            setTimeout(() => {
+                feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if(currentQuestion < quizData.length) {
+                loadQuestion();
+                window.scrollTo({ top: document.getElementById('quiz-section').offsetTop - 50, behavior: 'smooth' });
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            questionScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            
+            progressBar.style.width = '100%';
+            const percentage = Math.round((score / quizData.length) * 100);
+            const scoreEl = document.getElementById('final-score');
+            
+            // Animasi Nombor Markah
+            let currentScore = 0;
+            const timer = setInterval(() => {
+                currentScore += 5;
+                scoreEl.innerText = `${currentScore}%`;
+                if(currentScore >= percentage) {
+                    clearInterval(timer);
+                    scoreEl.innerText = `${percentage}%`; // Pastikan markah tepat jika percentage 0
+                }
+            }, 30);
+
+            // Tentukan mesej pujian
+            let msg = "", msgClass = "";
+            if(percentage >= 80) { 
+                msg = "MasyaAllah! Anda Memang Cemerlang! 🌟"; 
+                msgClass = "text-purple-600 bg-purple-50 border-purple-100"; 
+            } else if(percentage >= 50) { 
+                msg = "Usaha Yang Baik! Teruskan Belajar. 👍"; 
+                msgClass = "text-blue-600 bg-blue-50 border-blue-100"; 
+            } else { 
+                msg = "Jangan Putus Asa, Sila Ulang Nota Semula. 💪"; 
+                msgClass = "text-orange-600 bg-orange-50 border-orange-100"; 
+            }
+            
+            const msgEl = document.getElementById('score-message');
+            msgEl.innerText = msg;
+            msgEl.className = `text-sm font-bold mt-4 inline-block px-4 py-2 rounded-full border ${msgClass}`;
+        }
+
+        // Mulakan kuiz bila halaman dimuat turun
+        window.onload = loadQuestion;
+        
+    </script>
+</body>
+</html>
