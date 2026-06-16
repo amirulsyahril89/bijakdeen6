@@ -1,176 +1,378 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BijakDeen - Pendidikan Islam Tahun 6</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <style>
-        body { font-family: 'Nunito', sans-serif; background-color: #F0F9FF; }
-        .card-hover:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .card-active:active { transform: scale(0.95); }
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        /* Toast Animation */
-        @keyframes slideUp { from { transform: translate(-50%, 100%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
-        .toast-show { animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BijakDeen - Pendidikan Islam Tahun 6</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Nunito',sans-serif;
+  min-height:100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #43e97b 100%);
+  background-size: 300% 300%;
+  animation: bgShift 10s ease infinite;
+  position:relative;
+  overflow-x:hidden;
+}
+@keyframes bgShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background: radial-gradient(circle at 20% 80%, rgba(120,119,198,0.4) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255,119,115,0.3) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(67,233,123,0.2) 0%, transparent 50%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.bubble{
+  position:fixed;
+  border-radius:50%;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(4px);
+  animation:float linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes float{
+  0%{transform:translateY(110vh) rotate(0deg);opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{transform:translateY(-10vh) rotate(720deg);opacity:0}
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1.5px solid rgba(255,255,255,0.35);
+  box-shadow:0 4px 24px rgba(0,0,0,0.08);
+}
+.header-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:1rem 1.5rem;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  gap:0.75rem;
+}
+.logo-link{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+  text-decoration:none;
+}
+.logo-text h1{font-size:1.6rem;font-weight:900;color:#fff;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.logo-text h1 span{color:#fde68a;}
+.logo-text p{font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:0.12em;text-transform:uppercase;}
+
+.year-switcher{
+  display:flex;
+  background:rgba(255,255,255,0.2);
+  border:1.5px solid rgba(255,255,255,0.35);
+  border-radius:999px;
+  padding:4px;
+  gap:4px;
+  backdrop-filter:blur(10px);
+}
+.year-btn{
+  padding:6px 18px;
+  border-radius:999px;
+  font-size:0.8rem;
+  font-weight:700;
+  font-family:'Nunito',sans-serif;
+  border:none;
+  cursor:not-allowed;
+  transition:all 0.2s;
+  color:rgba(255,255,255,0.35);
+  background:transparent;
+}
+.year-btn.active{
+  background:rgba(255,255,255,0.95);
+  color:#6366f1;
+  cursor:pointer;
+  box-shadow:0 0 0 3px rgba(255,255,255,0.4), 0 0 16px rgba(255,255,255,0.6), 0 2px 8px rgba(0,0,0,0.15);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+@keyframes glowPulse{
+  0%,100%{box-shadow:0 0 0 3px rgba(255,255,255,0.4), 0 0 16px rgba(255,255,255,0.6), 0 2px 8px rgba(0,0,0,0.15);}
+  50%{box-shadow:0 0 0 5px rgba(255,255,255,0.55), 0 0 28px rgba(255,255,255,0.85), 0 2px 8px rgba(0,0,0,0.15);}
+}
+
+main{
+  position:relative;
+  z-index:1;
+  max-width:1100px;
+  margin:0 auto;
+  padding:2.5rem 1.5rem 5rem;
+}
+
+.hero{text-align:center;margin-bottom:2.5rem;}
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(10px);
+  border:1.5px solid rgba(255,255,255,0.4);
+  color:#fff;
+  font-size:0.7rem;
+  font-weight:800;
+  padding:5px 14px;
+  border-radius:999px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:0.75rem;
+}
+.hero h2{
+  font-size:2.4rem;
+  font-weight:900;
+  color:#fff;
+  margin-bottom:0.5rem;
+  text-shadow:0 4px 16px rgba(0,0,0,0.2);
+}
+.hero p{
+  color:rgba(255,255,255,0.82);
+  font-size:1.05rem;
+  font-weight:600;
+  max-width:400px;
+  margin:0 auto;
+}
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.25rem;
+}
+
+.glass-card{
+  background:rgba(255,255,255,0.22);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1.5px solid rgba(255,255,255,0.45);
+  border-radius:24px;
+  padding:1.5rem;
+  cursor:pointer;
+  transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+  position:relative;
+  overflow:hidden;
+  text-decoration:none;
+  display:block;
+  box-shadow:0 8px 32px rgba(0,0,0,0.1);
+}
+.glass-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.3) 0%,rgba(255,255,255,0) 60%);
+  pointer-events:none;
+  border-radius:inherit;
+}
+.glass-card:hover{
+  transform:translateY(-8px) scale(1.02);
+  background:rgba(255,255,255,0.32);
+  border-color:rgba(255,255,255,0.65);
+  box-shadow:0 20px 48px rgba(0,0,0,0.18);
+}
+.glass-card:active{transform:scale(0.96);}
+
+.card-icon{
+  width:60px;height:60px;
+  border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.75rem;
+  margin-bottom:1rem;
+  position:relative;
+  z-index:1;
+  border:1.5px solid rgba(255,255,255,0.5);
+}
+.card-title{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:2px;text-shadow:0 2px 6px rgba(0,0,0,0.15);}
+.card-sub{font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.75);margin-bottom:1rem;}
+.card-footer{display:flex;justify-content:space-between;align-items:center;}
+.card-badge{
+  font-size:0.7rem;font-weight:800;padding:4px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.25);
+  border:1px solid rgba(255,255,255,0.4);
+  color:#fff;
+}
+.card-arrow{font-size:1.1rem;color:rgba(255,255,255,0.7);transition:transform 0.2s;}
+.glass-card:hover .card-arrow{transform:translateX(4px);}
+
+.card-teal .card-icon{background:linear-gradient(135deg,rgba(16,185,129,0.5),rgba(5,150,105,0.6));}
+.card-emerald .card-icon{background:linear-gradient(135deg,rgba(52,211,153,0.5),rgba(16,185,129,0.6));}
+.card-amber .card-icon{background:linear-gradient(135deg,rgba(251,191,36,0.5),rgba(245,158,11,0.6));}
+.card-blue .card-icon{background:linear-gradient(135deg,rgba(96,165,250,0.5),rgba(59,130,246,0.6));}
+.card-violet .card-icon{background:linear-gradient(135deg,rgba(167,139,250,0.5),rgba(139,92,246,0.6));}
+.card-rose .card-icon{background:linear-gradient(135deg,rgba(251,113,133,0.5),rgba(244,63,94,0.6));}
+.card-indigo .card-icon{background:linear-gradient(135deg,rgba(129,140,248,0.5),rgba(99,102,241,0.6));}
+
+footer{
+  position:relative;z-index:1;
+  text-align:center;padding:1.5rem;
+  color:rgba(255,255,255,0.65);
+  font-size:0.82rem;font-weight:700;
+  background:rgba(0,0,0,0.1);
+  backdrop-filter:blur(10px);
+  border-top:1px solid rgba(255,255,255,0.2);
+}
+
+#toast{
+  position:fixed;bottom:2rem;left:50%;
+  transform:translateX(-50%) translateY(200%);
+  background:rgba(15,23,42,0.85);
+  backdrop-filter:blur(20px);
+  border:1.5px solid rgba(255,255,255,0.2);
+  color:#fff;padding:1rem 1.25rem;
+  border-radius:16px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+  display:flex;align-items:center;gap:0.75rem;
+  z-index:100;min-width:280px;
+  transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+#toast.show{transform:translateX(-50%) translateY(0);}
+.toast-ico{width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.toast-title{font-weight:800;font-size:0.85rem;}
+.toast-sub{font-size:0.72rem;color:rgba(255,255,255,0.6);margin-top:2px;}
+
+@media(max-width:640px){
+  .hero h2{font-size:1.8rem;}
+  .card-grid{grid-template-columns:repeat(2,1fr);}
+  .year-switcher{display:none;}
+  .mobile-years{display:flex;justify-content:center;gap:6px;margin-top:4px;}
+  .mobile-year-btn{
+    padding:5px 14px;border-radius:999px;
+    font-size:0.72rem;font-weight:700;
+    font-family:'Nunito',sans-serif;
+    border:1.5px solid rgba(255,255,255,0.25);
+    background:rgba(255,255,255,0.1);
+    color:rgba(255,255,255,0.35);cursor:not-allowed;
+  }
+  .mobile-year-btn.active{
+    background:rgba(255,255,255,0.95);color:#6366f1;
+    border-color:transparent;cursor:pointer;
+    animation:glowPulse 2s ease-in-out infinite;
+  }
+}
+@media(min-width:641px){.mobile-years{display:none;}}
+</style>
 </head>
-<body class="min-h-screen flex flex-col text-slate-700 selection:bg-pink-200 overflow-x-hidden">
+<body>
 
-    <!-- Header -->
-        <header class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b-2 border-slate-100 shadow-sm">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            
-            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition">
-                <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md">
-                    <i class="ph-bold ph-book-open text-white text-2xl"></i>
-                </div>
-                <div>
-                    <h1 class="font-extrabold text-2xl leading-tight text-slate-800">Bijak<span class="text-indigo-600">Deen</span></h1>
-                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Pendidikan Islam • Tahun 6</p>
-                </div>
-            </a>
+<div class="bubble" style="width:80px;height:80px;left:10%;animation-duration:18s;animation-delay:0s;"></div>
+<div class="bubble" style="width:50px;height:50px;left:25%;animation-duration:14s;animation-delay:3s;"></div>
+<div class="bubble" style="width:120px;height:120px;left:60%;animation-duration:22s;animation-delay:1s;"></div>
+<div class="bubble" style="width:40px;height:40px;left:80%;animation-duration:12s;animation-delay:5s;"></div>
+<div class="bubble" style="width:90px;height:90px;left:45%;animation-duration:16s;animation-delay:7s;"></div>
+<div class="bubble" style="width:60px;height:60px;left:70%;animation-duration:20s;animation-delay:2s;"></div>
 
-            <div class="hidden sm:flex bg-slate-100 p-1.5 rounded-full items-center gap-1 border border-slate-200">
-                <span class="px-5 py-2 rounded-full text-sm font-bold text-slate-400 opacity-50 cursor-not-allowed">
-        Tahun 4
-    </span>
-    <span class="px-5 py-2 rounded-full text-sm font-bold text-slate-400 opacity-50 cursor-not-allowed">
-        Tahun 5
-    </span>
-    <a href="#" class="px-5 py-2 rounded-full bg-white text-indigo-700 shadow-sm font-extrabold border border-slate-100">
-        Tahun 6
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <div class="logo-text">
+        <h1>Bijak<span>Deen</span></h1>
+        <p>Pendidikan Islam • Tahun 6</p>
+      </div>
     </a>
-</div>
 
-<div class="sm:hidden w-full mt-2 flex justify-center gap-2">
-    <span class="px-4 py-1.5 rounded-full bg-slate-100 text-xs font-bold text-slate-400 opacity-50 cursor-not-allowed">
-        Thn 4
-    </span>
-    <span class="px-4 py-1.5 rounded-full bg-slate-100 text-xs font-bold text-slate-400 opacity-50 cursor-not-allowed">
-        Thn 5
-    </span>
-    <a href="#" class="px-4 py-1.5 rounded-full bg-indigo-100 text-xs font-bold text-indigo-700 border border-indigo-200">
-        Thn 6
-    </a>
-</div>
-
-        </div>
-    </header>
-
-
-    <main class="flex-grow max-w-6xl mx-auto px-6 py-10 w-full fade-in">
-        <div class="text-center mb-10">
-            <span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-3 py-1 rounded-full border border-yellow-200 uppercase tracking-wider mb-3 inline-block">Selamat Datang</span>
-            <h2 class="text-4xl font-extrabold text-slate-800 mb-3">Jom Belajar Bersama! 🚀</h2>
-            <p class="text-slate-500 text-lg max-w-xl mx-auto font-medium">Pilih bidang di bawah untuk memulakan.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20">
-            
-            <!-- 1. Al-Quran -->
-            <div class="bg-white rounded-3xl p-6 shadow-xl shadow-teal-100/50 border-2 border-teal-50 group card-hover card-active cursor-pointer transition-all duration-300" onclick="window.location.href='menu_quran.html'">
-                <div class="w-16 h-16 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center mb-5 text-3xl shadow-sm"><i class="ph-duotone ph-book-open-text"></i></div>
-                <h3 class="text-xl font-extrabold text-slate-800 mb-1">Al-Quran</h3>
-                <p class="text-sm font-semibold text-teal-600/70">Tilawah, Hafazan & Tajwid</p>
-                <div class="mt-4 flex justify-between items-center">
-                    <span class="text-xs font-bold bg-teal-50 text-teal-600 px-2 py-1 rounded-lg">5 Unit</span>
-                    <i class="ph-bold ph-arrow-right text-teal-400 group-hover:translate-x-1"></i>
-                </div>
-            </div>
-
-            <!-- 2. Hadith -->
-            <div class="bg-white rounded-3xl p-6 shadow-xl shadow-emerald-100/50 border-2 border-emerald-50 group card-hover card-active cursor-pointer transition-all duration-300" onclick="window.location.href='menu_hadith.html'">
-                <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-5 text-3xl shadow-sm"><i class="ph-duotone ph-quotes"></i></div>
-                <h3 class="text-xl font-extrabold text-slate-800 mb-1">Hadith</h3>
-                <p class="text-sm font-semibold text-emerald-600/70">Sabda Rasulullah SAW</p>
-                <div class="mt-4 flex justify-between items-center">
-                    <span class="text-xs font-bold bg-emerald-50 text-emerald-600 px-2 py-1 rounded-lg">1 Unit</span>
-                    <i class="ph-bold ph-arrow-right text-emerald-400 group-hover:translate-x-1"></i>
-                </div>
-            </div>
-
-            <!-- 3. Jawi -->
-            <div class="bg-white rounded-3xl p-6 shadow-xl shadow-amber-100/50 border-2 border-amber-50 group card-hover card-active cursor-pointer transition-all duration-300" onclick="window.location.href='menu_jawi.html'">
-                <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mb-5 text-3xl shadow-sm"><i class="ph-duotone ph-pen-nib"></i></div>
-                <h3 class="text-xl font-extrabold text-slate-800 mb-1">Jawi</h3>
-                <p class="text-sm font-semibold text-amber-600/70">Seni Tulisan</p>
-                <div class="mt-4 flex justify-between items-center">
-                    <span class="text-xs font-bold bg-amber-50 text-amber-600 px-2 py-1 rounded-lg">3 Unit</span>
-                    <i class="ph-bold ph-arrow-right text-amber-400 group-hover:translate-x-1"></i>
-                </div>
-            </div>
-
-            <!-- 4. Akidah -->
-            <div class="bg-white rounded-3xl p-6 shadow-xl shadow-blue-100/50 border-2 border-blue-50 group card-hover card-active cursor-pointer transition-all duration-300" onclick="window.location.href='menu_akidah.html'">
-                <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-5 text-3xl shadow-sm"><i class="ph-duotone ph-lightbulb"></i></div>
-                <h3 class="text-xl font-extrabold text-slate-800 mb-1">Akidah</h3>
-                <p class="text-sm font-semibold text-blue-600/70">Iman & Pegangan</p>
-                <div class="mt-4 flex justify-between items-center">
-                    <span class="text-xs font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded-lg">5 Unit</span>
-                    <i class="ph-bold ph-arrow-right text-blue-400 group-hover:translate-x-1"></i>
-                </div>
-            </div>
-
-            <!-- 5. Ibadah -->
-            <div class="bg-white rounded-3xl p-6 shadow-xl shadow-violet-100/50 border-2 border-violet-50 group card-hover card-active cursor-pointer transition-all duration-300" onclick="window.location.href='menu_ibadah.html'">
-                <div class="w-16 h-16 rounded-2xl bg-violet-100 text-violet-600 flex items-center justify-center mb-5 text-3xl shadow-sm"><i class="ph-duotone ph-person-simple-run"></i></div>
-                <h3 class="text-xl font-extrabold text-slate-800 mb-1">Ibadah</h3>
-                <p class="text-sm font-semibold text-violet-600/70">Panduan Amalan</p>
-                <div class="mt-4 flex justify-between items-center">
-                    <span class="text-xs font-bold bg-violet-50 text-violet-600 px-2 py-1 rounded-lg">3 Unit</span>
-                    <i class="ph-bold ph-arrow-right text-violet-400 group-hover:translate-x-1"></i>
-                </div>
-            </div>
-            
-            <!-- 6. Sirah -->
-            <div class="bg-white rounded-3xl p-6 shadow-xl shadow-rose-100/50 border-2 border-rose-50 group card-hover card-active cursor-pointer transition-all duration-300" onclick="window.location.href='menu_sirah.html'">
-                <div class="w-16 h-16 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mb-5 text-3xl shadow-sm"><i class="ph-duotone ph-scroll"></i></div>
-                <h3 class="text-xl font-extrabold text-slate-800 mb-1">Sirah</h3>
-                <p class="text-sm font-semibold text-rose-600/70">Kisah Nabi Muhammad SAW</p>
-                <div class="mt-4 flex justify-between items-center">
-                    <span class="text-xs font-bold bg-rose-50 text-rose-600 px-2 py-1 rounded-lg">3 Unit</span>
-                    <i class="ph-bold ph-arrow-right text-rose-400 group-hover:translate-x-1"></i>
-                </div>
-            </div>
-
-            <!-- 7. Adab  -->
-            <div class="bg-white rounded-3xl p-6 shadow-xl shadow-indigo-100/50 border-2 border-indigo-50 group card-hover card-active cursor-pointer transition-all duration-300" onclick="window.location.href='menu_adab.html'">
-                <div class="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-5 text-3xl shadow-sm"><i class="ph-duotone ph-hand-heart"></i></div>
-                <h3 class="text-xl font-extrabold text-slate-800 mb-1">Adab</h3>
-                <p class="text-sm font-semibold text-indigo-600/70">Akhlak Mulia</p>
-                <div class="mt-4 flex justify-between items-center">
-                     <span class="text-xs font-bold bg-indigo-50 text-indigo-600 px-2 py-1 rounded-lg">4 Unit</span>
-                    <i class="ph-bold ph-arrow-right text-indigo-400 group-hover:translate-x-1"></i>
-                </div>
-            </div>
-
-        </div>
-    </main>
-    
-    <footer class="text-center py-8 text-slate-400 text-sm font-semibold bg-white/50 border-t border-slate-200 mt-auto">
-        <p>&copy; 2026 BijakDeen - Laman Pendidikan Islam Generasi Alpha</p>
-    </footer>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-4 rounded-xl shadow-2xl hidden flex-items-center gap-4 z-50 text-left min-w-[300px]">
-        <div class="bg-slate-700 p-2 rounded-lg text-yellow-400"><i class="ph-fill ph-lock-key text-xl"></i></div>
-        <div><h4 class="font-bold text-sm text-white" id="toast-msg">Menu Belum Dibuat</h4><p class="text-xs text-slate-300">Sila cipta fail menu untuk bidang ini.</p></div>
+    <div class="year-switcher">
+      <button class="year-btn" disabled>Tahun 4</button>
+      <button class="year-btn" disabled>Tahun 5</button>
+      <button class="year-btn active">Tahun 6</button>
     </div>
 
-    <script>
-        let toastTimeout;
-        function showToast(bidang) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = `Menu ${bidang} Belum Sedia`;
-            toast.classList.remove('hidden'); toast.classList.remove('toast-show');
-            void toast.offsetWidth; toast.classList.add('toast-show'); toast.classList.remove('hidden');
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => { toast.classList.add('hidden'); }, 3000);
-        }
-    </script>
+    <div class="mobile-years">
+      <span class="mobile-year-btn">Thn 4</span>
+      <span class="mobile-year-btn">Thn 5</span>
+      <span class="mobile-year-btn active">Thn 6</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-badge">✨ Selamat Datang</div>
+    <h2>Jom Belajar Bersama! 🚀</h2>
+    <p>Pilih bidang di bawah untuk memulakan.</p>
+  </div>
+
+  <div class="card-grid">
+    <a href="menu_quran.html" class="glass-card card-teal">
+      <div class="card-icon">📖</div>
+      <div class="card-title">Al-Quran</div>
+      <div class="card-sub">Tilawah, Hafazan & Tajwid</div>
+      <div class="card-footer"><span class="card-badge">5 Unit</span><span class="card-arrow">→</span></div>
+    </a>
+    <a href="menu_hadith.html" class="glass-card card-emerald">
+      <div class="card-icon">💬</div>
+      <div class="card-title">Hadith</div>
+      <div class="card-sub">Sabda Rasulullah SAW</div>
+      <div class="card-footer"><span class="card-badge">1 Unit</span><span class="card-arrow">→</span></div>
+    </a>
+    <a href="menu_jawi.html" class="glass-card card-amber">
+      <div class="card-icon">✍️</div>
+      <div class="card-title">Jawi</div>
+      <div class="card-sub">Seni Tulisan</div>
+      <div class="card-footer"><span class="card-badge">3 Unit</span><span class="card-arrow">→</span></div>
+    </a>
+    <a href="menu_akidah.html" class="glass-card card-blue">
+      <div class="card-icon">💡</div>
+      <div class="card-title">Akidah</div>
+      <div class="card-sub">Iman & Pegangan</div>
+      <div class="card-footer"><span class="card-badge">5 Unit</span><span class="card-arrow">→</span></div>
+    </a>
+    <a href="menu_ibadah.html" class="glass-card card-violet">
+      <div class="card-icon">🤲</div>
+      <div class="card-title">Ibadah</div>
+      <div class="card-sub">Panduan Amalan</div>
+      <div class="card-footer"><span class="card-badge">3 Unit</span><span class="card-arrow">→</span></div>
+    </a>
+    <a href="menu_sirah.html" class="glass-card card-rose">
+      <div class="card-icon">📜</div>
+      <div class="card-title">Sirah</div>
+      <div class="card-sub">Kisah Nabi Muhammad SAW</div>
+      <div class="card-footer"><span class="card-badge">3 Unit</span><span class="card-arrow">→</span></div>
+    </a>
+    <a href="menu_adab.html" class="glass-card card-indigo">
+      <div class="card-icon">🤝</div>
+      <div class="card-title">Adab</div>
+      <div class="card-sub">Akhlak Mulia</div>
+      <div class="card-footer"><span class="card-badge">4 Unit</span><span class="card-arrow">→</span></div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 BijakDeen — Laman Pendidikan Islam Generasi Alpha</p>
+</footer>
+
+<div id="toast">
+  <div class="toast-ico">🔒</div>
+  <div>
+    <div class="toast-title" id="toast-msg">Menu Belum Sedia</div>
+    <div class="toast-sub">Sila cipta fail menu untuk bidang ini.</div>
+  </div>
+</div>
+
+<script>
+let toastTimeout;
+function showToast(bidang){
+  const toast=document.getElementById('toast');
+  document.getElementById('toast-msg').innerText=`Menu ${bidang} Belum Sedia`;
+  toast.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout=setTimeout(()=>toast.classList.remove('show'),3000);
+}
+</script>
 </body>
 </html>
